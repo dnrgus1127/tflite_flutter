@@ -13,7 +13,7 @@ class dictionaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text("Pest List"),
+          middle: Text("해충 사전"),
           trailing: CupertinoButton(child: Icon(Icons.exit_to_app), onPressed: (){},),
           leading: CupertinoButton(child: Icon(Icons.arrow_back_ios), onPressed: (){
           },
@@ -35,12 +35,13 @@ class dictionaryPage extends StatelessWidget {
                             width: 80,
                             height: 80,
                           ),
+                          SizedBox(width: 4,),
                           Text(pestList[index].pestName!,style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold ),),
                         ],
                       ),
                       Container(
                         height: 2,
-                        color: CupertinoColors.black,
+                        color: CupertinoColors.systemGrey
                       )
                     ],
                   ),

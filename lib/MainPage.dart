@@ -1,5 +1,6 @@
 //ignore_for_file: prefer_const_constructors
 
+import 'package:fluting/secondPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluting/camera2.dart';
@@ -19,16 +20,17 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   File? _image;
   final picker = ImagePicker();
-
+  String result = "결과";
+  String second = "";
   List? _outputs;
+  var per;
 
- // 앱이 실행될 때 loadModel 호출
+  // 앱이 실행될 때 loadModel 호출
   @override
   void initState() {
     super.initState();
     loadModel().then((value) {
       setState(() {
-        print("SetState");
       });
     });
   }
@@ -37,7 +39,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text("Main Page"),
+          middle: Text("병해충 진단"),
         ),
         child: Center(
           child: Column(
@@ -53,34 +55,54 @@ class _MainPage extends State<MainPage> {
                       height: 200,
                     ),
               const SizedBox(
-                height: 50,
+                height: 10,
+              ),
+              Text(result),
+              Text(second),
+              const SizedBox(
+                height: 10,
               ),
               CupertinoButton(
-                onPressed: () {
-                  setState(() async {
-                    await getImage(ImageSource.camera);
-                    classifyImage(_image!);
-                    print("출력2");
+                onPressed: () async{
+                  await getImage(ImageSource.camera);
+                  //await classifyImage(_image!).then((value) => print(_outputs![0]['label']));
+                  await classifyImage(_image!).then((value) => print(_outputs));
+                  setState(() {
+                    result = _outputs![0]['label'];
+                  });
+                },
+                color: Colors.blueAccent,
+                child: Text('카메라'),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              CupertinoButton(
+                child: Text("갤러리"),
+                color: Colors.blueAccent,
+                onPressed: () async{
+                  await getImage(ImageSource.gallery).then((value) => print("getImage"));
+                  await classifyImage(_image!).then((value) => print(_outputs));
+                  setState(()  {
+                    //result = _outputs![0]['label'] + "와 " + _outputs![0]['confidence'].toString().toUpperCase()+ "일치합니다.";
+                    result = "${_outputs![0]['label']} 와 ${_outputs![0]['confidence']*100}% 일치합니다.";
+                    
+                    _outputs!.length  < 2
+                        ? second = ""
+                        : second =
+                            "${_outputs![1]['label']} 와 ${_outputs![1]['confidence'] * 100}% 일치합니다.";
+                    
+                    //result = "담배가루이와 ${per}% 일치합니다.";
                     print(_outputs);
                   });
                 },
-                color: Colors.blueGrey,
-                child: Text('Camera'),
               ),
               const SizedBox(
-                height: 30,
+                height: 40,
               ),
-              CupertinoButton(
-                child: Text("Gallary"),
-                color: Colors.blueGrey,
-                onPressed: () {
-                  setState(() async {
-                    await getImage(ImageSource.gallery);
-                    classifyImage(_image!);
-                    //recycleDialog(context);
-                  });
-                },
-              )
+              CupertinoButton(child: Text("Analysis"), color: Colors.green , onPressed: () {
+                Navigator.of(context).push(CupertinoPageRoute(builder: (context) => SecondPage(_outputs![0]['label'],_image!)));
+              })
             ],
           ),
         ));
@@ -96,7 +118,7 @@ class _MainPage extends State<MainPage> {
 
   loadModel() async {
     await Tflite.loadModel(
-            model: "assets/pest_model.tflite", labels: "assets/label.txt")
+            model: "assets/model96.tflite", labels: "assets/label.txt")
         .then((value) {
       setState(() {});
     });
@@ -108,7 +130,7 @@ class _MainPage extends State<MainPage> {
         path: image.path, // required
         imageMean: 0.0, // defaults to 117.0
         imageStd: 255.0, // defaults to 1.0
-        numResults: 2, // defaults to 5
+        numResults: 10, // defaults to 5
         threshold: 0.2, // defaults to 0.1
         asynch: true // defaults to true
         );
