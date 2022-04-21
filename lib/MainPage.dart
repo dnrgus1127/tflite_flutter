@@ -30,8 +30,7 @@ class _MainPage extends State<MainPage> {
   void initState() {
     super.initState();
     loadModel().then((value) {
-      setState(() {
-      });
+      setState(() {});
     });
   }
 
@@ -45,15 +44,20 @@ class _MainPage extends State<MainPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              _image == null
-                  ? Image.asset(
-                      "repo/images/4.png",
-                    )
-                  : Image.file(
-                      File(_image!.path),
-                      width: 200,
-                      height: 200,
-                    ),
+              ClipRRect(
+                child: _image == null
+                    ? Image.asset(
+                        "repo/images/4.png",
+                        fit:  BoxFit.fill,
+                      )
+                    : Image.file(
+                        File(_image!.path),
+                        width: 200,
+                        height: 200,
+                        fit:  BoxFit.fill
+                      ),
+                borderRadius: BorderRadius.circular(8.0),     
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -63,7 +67,7 @@ class _MainPage extends State<MainPage> {
                 height: 10,
               ),
               CupertinoButton(
-                onPressed: () async{
+                onPressed: () async {
                   await getImage(ImageSource.camera);
                   //await classifyImage(_image!).then((value) => print(_outputs![0]['label']));
                   await classifyImage(_image!).then((value) => print(_outputs));
@@ -80,18 +84,20 @@ class _MainPage extends State<MainPage> {
               CupertinoButton(
                 child: Text("갤러리"),
                 color: Colors.blueAccent,
-                onPressed: () async{
-                  await getImage(ImageSource.gallery).then((value) => print("getImage"));
+                onPressed: () async {
+                  await getImage(ImageSource.gallery)
+                      .then((value) => print("getImage"));
                   await classifyImage(_image!).then((value) => print(_outputs));
-                  setState(()  {
+                  setState(() {
                     //result = _outputs![0]['label'] + "와 " + _outputs![0]['confidence'].toString().toUpperCase()+ "일치합니다.";
-                    result = "${_outputs![0]['label']} 와 ${_outputs![0]['confidence']*100}% 일치합니다.";
-                    
-                    _outputs!.length  < 2
+                    result =
+                        "${_outputs![0]['label']} 와 ${_outputs![0]['confidence'] * 100}% 일치합니다.";
+
+                    _outputs!.length < 2
                         ? second = ""
                         : second =
                             "${_outputs![1]['label']} 와 ${_outputs![1]['confidence'] * 100}% 일치합니다.";
-                    
+
                     //result = "담배가루이와 ${per}% 일치합니다.";
                     print(_outputs);
                   });
@@ -100,9 +106,14 @@ class _MainPage extends State<MainPage> {
               const SizedBox(
                 height: 40,
               ),
-              CupertinoButton(child: Text("Analysis"), color: Colors.green , onPressed: () {
-                Navigator.of(context).push(CupertinoPageRoute(builder: (context) => SecondPage(_outputs![0]['label'],_image!)));
-              })
+              CupertinoButton(
+                  child: Text("Analysis"),
+                  color: Colors.green,
+                  onPressed: () {
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) =>
+                            SecondPage(_outputs![0]['label'], _image!)));
+                  })
             ],
           ),
         ));

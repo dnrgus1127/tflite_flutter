@@ -37,20 +37,62 @@ class _SecondPage extends State<SecondPage> {
             borderRadius: BorderRadius.circular(8.0),
           ),
           Text("${widget.data}"),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           Container(
             decoration: BoxDecoration(
-              color: Colors.brown.shade300,
+              color: Colors.brown.shade200,
                 border: Border(
               top: BorderSide(width: 2.0, color: Colors.black38),
               bottom: BorderSide(width: 2.0, color: Colors.black38),
             )),
             child: Text(
-              " 방제 방법",style: TextStyle(fontWeight: FontWeight.bold),
+              " 해충 정보",style: TextStyle(fontWeight: FontWeight.bold),
             ),
             width: MediaQuery.of(context).size.width, //앱 화면 넓이 double Ex> 360.0
             //color: Colors.,
-          )
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.brown.shade100,
+                border: Border(
+              top: BorderSide(width: 2.0, color: Colors.black38),
+              bottom: BorderSide(width: 2.0, color: Colors.black38),
+            )),
+            child: Text(
+              " ",style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            width: MediaQuery.of(context).size.width, //앱 화면 넓이 double Ex> 360.0
+            height: 150,
+            //color: Colors.,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.brown.shade200,
+                border: Border(
+              top: BorderSide(width: 2.0, color: Colors.black38),
+              bottom: BorderSide(width: 2.0, color: Colors.black38),
+            )),
+            child: Text(
+              "방제 방법",style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            width: MediaQuery.of(context).size.width, //앱 화면 넓이 double Ex> 360.0
+            //height: 200,
+            //color: Colors.,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.brown.shade100,
+                border: Border(
+              top: BorderSide(width: 2.0, color: Colors.black38),
+              bottom: BorderSide(width: 2.0, color: Colors.black38),
+            )),
+            child: Text(
+              " ",style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            width: MediaQuery.of(context).size.width, //앱 화면 넓이 double Ex> 360.0
+            height: 150,
+            //color: Colors.,
+          ),
         ]),
       ),
     );
