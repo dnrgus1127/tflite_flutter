@@ -34,7 +34,7 @@ class HeaderWithSearchBox extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Pest Controller",
+                  "병해충 AI",
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -61,9 +61,9 @@ class HeaderWithSearchBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: kPrimaryColor.withOpacity(0.23),
+                    offset: Offset(2, 10),
+                    blurRadius: 10,
+                    color: Colors.black.withOpacity(0.28),
                   ),
                 ],
               ),
