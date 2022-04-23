@@ -1,12 +1,19 @@
 //ignore_for_file: prefer_const_constructors
 
+import 'package:camera/camera.dart';
 import 'package:fluting/home_screen.dart';
 import 'package:flutter/material.dart';
-import './cupertinoMain.dart';
 import './constant.dart';
 
+List<CameraDescription>? cameras;
+
 Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

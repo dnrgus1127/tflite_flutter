@@ -1,4 +1,3 @@
-import 'package:fluting/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './body.dart';
@@ -18,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
-      toolbarHeight: 60,
+      toolbarHeight: 65,
       leading: IconButton(
         icon: Icon(CupertinoIcons.bars),
         onPressed: () {},

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './constant.dart';
 import './HeaderWithSearchBox.dart';
+import 'VideoPage.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -14,6 +15,51 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           HeaderWithSearchBox(size: size),
+          Container(
+            padding: EdgeInsets.only(
+              left: kDefaultPadding * 2.5,
+              right: kDefaultPadding * 2.5,
+              top: kDefaultPadding / 6,
+              bottom: kDefaultPadding * 0.3,
+            ), 
+            child: Row(
+              
+              children: <Widget>[
+                CupertinoButton(
+                  child: Text("사진촬영"),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    Navigator.push(context, 
+                    MaterialPageRoute(builder: (context){
+                      return VideoPage();
+                    },fullscreenDialog: true), );
+                  },
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  minSize: 0,
+                  padding: EdgeInsets.only(
+                    bottom: kDefaultPadding /2,
+                    top: kDefaultPadding /2,
+                    left: kDefaultPadding ,
+                    right: kDefaultPadding ,
+                  ),
+                ),
+                Spacer(),
+                 CupertinoButton(
+                  child: Text("갤러리"),
+                  color: kPrimaryColor,
+                  onPressed: () {},
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  minSize: 0,
+                  padding: EdgeInsets.only(
+                    bottom: kDefaultPadding /2,
+                    top: kDefaultPadding /2,
+                    left: kDefaultPadding ,
+                    right: kDefaultPadding ,
+                  ),
+                ),
+              ],
+            ),
+          ),
           TitleWithMoreBtn(
             title: "Pest Information",
             press: () {},
