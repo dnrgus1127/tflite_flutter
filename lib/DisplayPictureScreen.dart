@@ -16,6 +16,7 @@ class DisplayPictureScreen extends StatefulWidget {
 }
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+  File? imageTemp;
   List? _outputs;
   String? index = "Defalut Value";
 
@@ -24,6 +25,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     super.initState();
     loadModel().then((value) {
       setState(() {});
+    });
+    imageTemp = widget.imagePath;
+    classifyImage(imageTemp!).then((_){
+      index = _outputs![0]['label'];
     });
   }
 
@@ -35,6 +40,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(microseconds: 1000), (){
+      
+    });
     return Scaffold(
       appBar: AppBar(title: Text('Display the Picture')),
       // 이미지는 디바이스에 파일로 저장됩니다. 이미지를 보여주기 위해 주어진

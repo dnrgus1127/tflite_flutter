@@ -1,9 +1,12 @@
 
 
 import 'dart:io';
+import 'package:fluting/DisplayPictureScreen.dart';
+import 'package:fluting/constant.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImageCrop extends StatefulWidget {
   final String title;
@@ -21,14 +24,18 @@ enum AppState {
 }
 
 class _ImageCrop extends State<ImageCrop> {
-  late AppState state;
+  AppState? state;
+  File? _imageTemp;
   //File? imageFile = widget.imagefile;
 
   @override
   void initState() {
     super.initState();
     state = AppState.picked;
+    _cropImage();
+    _imageTemp = widget.imageFile;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,39 +43,85 @@ class _ImageCrop extends State<ImageCrop> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: widget.imageFile != null ? Image.file(widget.imageFile!) : Container(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 40,left: 20,right: 20 ,bottom: 40),
+        child: Column(
+          children: [
+            
+            widget.imageFile != null
+                ? ClipRRect(
+                    child: Image.file(
+                      _imageTemp!,
+                      fit: BoxFit.fill,
+                      width: 300,
+                      height: 300,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  )
+                : Container(),
+            //SizedBox(height:30),
+            Spacer(),
+            Row(
+              children: [
+                CupertinoButton(
+                  child: Text("진단"),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context){
+                        return DisplayPictureScreen(
+                              imagePath: _imageTemp,
+                            );
+                      },fullscreenDialog: true), );
+                  },
+                ),
+                Spacer(),
+                CupertinoButton(
+                  color: kPrimaryColor,
+                  child: Text("재조정"),
+                  onPressed: () {
+                    _cropImage();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepOrange,
-        onPressed: () {
-          if (state == AppState.free)
-            //_pickImage();
-            print("");
-          else if (state == AppState.picked)
-            _cropImage();
-          else if (state == AppState.cropped) _clearImage();
-        },
-        child: _buildButtonIcon(),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: kPrimaryColor,
+      //   onPressed: () {
+      //     if (state == AppState.free)
+      //       _pickImage();
+      //     else if (state == AppState.picked)
+      //       _cropImage();
+      //     else if (state == AppState.cropped) _clearImage();
+      //   },
+      //   child: _buildButtonIcon(),
+      // ),
     );
   }
 
-  Widget _buildButtonIcon() {
-    if (state == AppState.free)
-      return Icon(Icons.add);
-    else if (state == AppState.picked)
-      return Icon(Icons.crop);
-    else if (state == AppState.cropped)
-      return Icon(Icons.clear);
-    else
-      return Container();
-  }
+  // Widget _buildButtonIcon() {
+  //   if (state == AppState.free)
+  //     return Icon(Icons.add);
+  //   else if (state == AppState.picked)
+  //     return Icon(Icons.crop);
+  //   else if (state == AppState.cropped)
+  //     return Icon(Icons.clear);
+  //   else
+  //     return Container();
+  // }
 
   // Future<Null> _pickImage() async {
   //   final pickedImage =
   //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   widget.imageFile = pickedImage != null ? File(pickedImage.path) : null;
+  //   _imageTemp = pickedImage != null ? File(pickedImage.path) : null;
   //   if (widget.imageFile != null) {
   //     setState(() {
   //       state = AppState.picked;
@@ -98,16 +151,19 @@ class _ImageCrop extends State<ImageCrop> {
                 CropAspectRatioPreset.ratio16x9
               ],
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
+            toolbarTitle: '곤충에 맞게 사진을 지정해주세요!',
+            toolbarColor: kPrimaryColor,
             toolbarWidgetColor: Colors.white,
+            //statusBarColor: kPrimaryColor,
+            backgroundColor: kPrimaryColor,
+            activeControlsWidgetColor: kPrimaryColor,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
         iosUiSettings: IOSUiSettings(
           title: 'Cropper',
         ));
     if (croppedFile != null) {
-      widget.imageFile = croppedFile;
+      _imageTemp = croppedFile;
       setState(() {
         state = AppState.cropped;
       });

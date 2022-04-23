@@ -204,14 +204,15 @@ class _VideoPageState extends State<VideoPage> {
                         );
                         //print(imageFile.toString());
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                DisplayPictureScreen(imagePath: imageFile),
+                        Navigator.pop(context,imageFile);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) =>
+                        //         DisplayPictureScreen(imagePath: imageFile),
                                 
-                          ),
-                        );
+                        //   ),
+                        // );
                       },
                       child: Container(
                         padding: EdgeInsets.all(4),

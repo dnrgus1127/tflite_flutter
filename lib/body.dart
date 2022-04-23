@@ -1,11 +1,18 @@
+import 'dart:io';
+
 import 'package:fluting/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import './constant.dart';
 import './HeaderWithSearchBox.dart';
+import 'ImageCrop.dart';
 import 'VideoPage.dart';
 
 class Body extends StatelessWidget {
+  File? imageFile;
+
+  
   @override
   Widget build(BuildContext context) {
     // It will us total heigth and width of our screen
@@ -28,11 +35,23 @@ class Body extends StatelessWidget {
                 CupertinoButton(
                   child: Text("사진촬영"),
                   color: kPrimaryColor,
-                  onPressed: () {
-                    Navigator.push(context, 
+                  onPressed: () async {
+                    final result = await Navigator.push(context, 
                     MaterialPageRoute(builder: (context){
                       return VideoPage();
                     },fullscreenDialog: true), );
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ImageCrop(
+                            title: "사진 조작!",
+                            imageFile: result,
+                          );
+                        },
+                      ),
+                    );
                   },
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                   minSize: 0,
@@ -47,7 +66,20 @@ class Body extends StatelessWidget {
                  CupertinoButton(
                   child: Text("갤러리"),
                   color: kPrimaryColor,
-                  onPressed: () {},
+                  onPressed: () async {
+                    await _pickImage();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ImageCrop(
+                            title: "사진 조작!",
+                            imageFile: imageFile,
+                          );
+                        },
+                      ),
+                    );
+                  },
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                   minSize: 0,
                   padding: EdgeInsets.only(
@@ -76,6 +108,11 @@ class Body extends StatelessWidget {
         ],
       ),
     );
+  }
+   Future<Null> _pickImage() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    imageFile = pickedImage != null ? File(pickedImage.path) : null;
   }
 }
 
