@@ -47,7 +47,7 @@ class _ImageCrop extends State<ImageCrop> {
         padding: const EdgeInsets.only(top: 40,left: 20,right: 20 ,bottom: 40),
         child: Column(
           children: [
-            
+
             widget.imageFile != null
                 ? ClipRRect(
                     child: Image.file(
@@ -65,19 +65,27 @@ class _ImageCrop extends State<ImageCrop> {
                   )
                 : Container(),
             //SizedBox(height:30),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Text("곤충이 위 사각형에 90%이상 꽉차게 맞춰 주세요!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+            ),
+            
             Spacer(),
             Row(
               children: [
                 CupertinoButton(
                   child: Text("진단"),
                   color: kPrimaryColor,
-                  onPressed: () {
-                    Navigator.push(context, 
+                  onPressed: () async {
+                    await Navigator.push(context, 
                       MaterialPageRoute(builder: (context){
                         return DisplayPictureScreen(
                               imagePath: _imageTemp,
                             );
-                      },fullscreenDialog: true), );
+                          },
+                          fullscreenDialog: true),
+                    );
+                    Navigator.pop(context);
                   },
                 ),
                 Spacer(),
