@@ -24,81 +24,104 @@ class Body extends StatelessWidget {
           HeaderWithSearchBox(size: size),
           Container(
             padding: EdgeInsets.only(
-              left: kDefaultPadding * 2.5,
-              right: kDefaultPadding * 2.5,
+              left: kDefaultPadding * 1.8,
+              right: kDefaultPadding * 1.8,
               top: kDefaultPadding / 6,
-              bottom: kDefaultPadding * 0.3,
+              bottom: kDefaultPadding,
             ), 
             child: Row(
-              
               children: <Widget>[
-                CupertinoButton(
-                  child: Text("사진촬영"),
-                  color: kPrimaryColor,
-                  onPressed: () async {
-                    final result = await Navigator.push(context, 
-                    MaterialPageRoute(builder: (context){
-                      return VideoPage();
-                    },fullscreenDialog: true), );
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 10),
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.20),
+                        ),
+                      ]),
+                  child: CupertinoButton(
+                    child: Text("사진 촬영"),
+                    color: kPrimaryColor,
+                    onPressed: () async {
+                      final result = await Navigator.push(context, 
+                      MaterialPageRoute(builder: (context){
+                        return VideoPage();
+                      },fullscreenDialog: true), );
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ImageCrop(
-                            title: "사진 조작!",
-                            imageFile: result,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  minSize: 0,
-                  padding: EdgeInsets.only(
-                    bottom: kDefaultPadding /2,
-                    top: kDefaultPadding /2,
-                    left: kDefaultPadding ,
-                    right: kDefaultPadding ,
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ImageCrop(
+                              title: "이미지 자르기",
+                              imageFile: result,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    minSize: 0,
+                    padding: EdgeInsets.only(
+                      bottom: kDefaultPadding,
+                      top: kDefaultPadding,
+                      left: kDefaultPadding * 2,
+                      right: kDefaultPadding * 2 ,
+                    ),
                   ),
                 ),
                 Spacer(),
-                 CupertinoButton(
-                  child: Text("갤러리"),
-                  color: kPrimaryColor,
-                  onPressed: () async {
-                    await _pickImage();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ImageCrop(
-                            title: "사진 조작!",
-                            imageFile: imageFile,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  minSize: 0,
-                  padding: EdgeInsets.only(
-                    bottom: kDefaultPadding /2,
-                    top: kDefaultPadding /2,
-                    left: kDefaultPadding ,
-                    right: kDefaultPadding ,
-                  ),
+                 Container(
+                   decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 10),
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.20),
+                        ),
+                      ]),
+                   child: CupertinoButton(
+                    child: Text("갤러리"),
+                    color: kPrimaryColor,
+                    onPressed: () async {
+                      await _pickImage();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ImageCrop(
+                              title: "이미지 자르기",
+                              imageFile: imageFile,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    minSize: 0,
+                    padding: EdgeInsets.only(
+                      bottom: kDefaultPadding,
+                      top: kDefaultPadding,
+                      left: kDefaultPadding * 2 ,
+                      right: kDefaultPadding * 2,
+                    ),
                 ),
+                 ),
               ],
             ),
           ),
           TitleWithMoreBtn(
-            title: "Pest Information",
+            title: "해충 사전",
             press: () {},
           ),
           RecomendsPests(),
           TitleWithMoreBtn(
-            title: "Lasted Pest",
+            title: "최근 조회",
             press: () {},
           ),
           RecomendsPests(),
@@ -216,9 +239,9 @@ class RecomendedPestCard extends StatelessWidget {
                       bottomRight: Radius.circular(10)),
                   boxShadow: [
                 BoxShadow(
-                  offset: Offset(5, 10),
+                  offset: Offset(0, 10),
                   blurRadius: 10,
-                  color: kPrimaryColor.withOpacity(0.20),
+                  color: Colors.black.withOpacity(0.10),
                   
                 ),
               ]),
@@ -279,7 +302,7 @@ class TitleWithMoreBtn extends StatelessWidget {
           ElevatedButton(
             onPressed: () => press,
             child: Text(
-              "More",
+              "더 보기",
               style: TextStyle(color: Colors.white),
             ),
             style: ElevatedButton.styleFrom(
