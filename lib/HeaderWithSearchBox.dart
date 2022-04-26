@@ -25,7 +25,7 @@ class HeaderWithSearchBox extends StatelessWidget {
                 bottom: 36 + kDefaultPadding),
             height: size!.height * 0.18 - 18,
             decoration: BoxDecoration(
-              color: kPrimaryColor,
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(36),
                 bottomRight: Radius.circular(36),
@@ -36,7 +36,7 @@ class HeaderWithSearchBox extends StatelessWidget {
                 Text(
                   "병해충 AI",
                   style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: kPrimaryColor, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Icon(
@@ -61,9 +61,9 @@ class HeaderWithSearchBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(2, 10),
+                    offset: Offset(0, 2),
                     blurRadius: 10,
-                    color: Colors.black.withOpacity(0.28),
+                    color: Colors.black.withOpacity(0.38),
                   ),
                 ],
               ),

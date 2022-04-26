@@ -34,11 +34,13 @@ class _ImageCrop extends State<ImageCrop> {
     state = AppState.picked;
     _cropImage();
     _imageTemp = widget.imageFile;
+    
   }
 
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

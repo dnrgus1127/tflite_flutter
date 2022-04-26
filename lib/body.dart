@@ -90,17 +90,19 @@ class Body extends StatelessWidget {
                     color: kPrimaryColor,
                     onPressed: () async {
                       await _pickImage();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ImageCrop(
-                              title: "이미지 자르기",
-                              imageFile: imageFile,
-                            );
-                          },
-                        ),
-                      );
+                      if (imageFile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ImageCrop(
+                                title: "이미지 자르기",
+                                imageFile: imageFile,
+                              );
+                            },
+                          ),
+                        );
+                      }
                     },
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                     minSize: 0,

@@ -58,24 +58,24 @@ class _CupertinoMain extends State<CupertinoMain> {
       BottomNavigationBarItem(icon: Icon(CupertinoIcons.ant_circle_fill)),
     ]);
 
-    pestList.add(
-        Pest(pestName: "검거세미나방", kind: "해충", imagePath: "repo/images/1.jpg"));
-    pestList.add(
-        Pest(pestName: "꽃노랑총채벌레", kind: "해충", imagePath: "repo/images/2.jpg"));
-    pestList.add(
-        Pest(pestName: "담배가루이", kind: "해충", imagePath: "repo/images/3.jpg"));
-    pestList.add(
-        Pest(pestName: "담배거세미나방", kind: "해충", imagePath: "repo/images/4.png"));
-    pestList.add(
-        Pest(pestName: "담배나방", kind: "해충", imagePath: "repo/images/5.jpg"));
-    pestList.add(
-        Pest(pestName: "도둑나방", kind: "해충", imagePath: "repo/images/6.jpg"));
-    pestList.add(
-        Pest(pestName: "먹노린재", kind: "해충", imagePath: "repo/images/7.jpg"));
-    pestList.add(
-        Pest(pestName: "목화바둑명나방", kind: "해충", imagePath: "repo/images/8.jpg"));
-    pestList.add(Pest(
-        pestName: "28점박이무당벌레", kind: "해충", imagePath: "repo/images/9.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "검거세미나방", kind: "해충", imagePath: "repo/images/1.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "꽃노랑총채벌레", kind: "해충", imagePath: "repo/images/2.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "담배가루이", kind: "해충", imagePath: "repo/images/3.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "담배거세미나방", kind: "해충", imagePath: "repo/images/4.png"));
+  //   pestList.add(
+  //       Pest(pestName: "담배나방", kind: "해충", imagePath: "repo/images/5.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "도둑나방", kind: "해충", imagePath: "repo/images/6.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "먹노린재", kind: "해충", imagePath: "repo/images/7.jpg"));
+  //   pestList.add(
+  //       Pest(pestName: "목화바둑명나방", kind: "해충", imagePath: "repo/images/8.jpg"));
+  //   pestList.add(Pest(
+  //       pestName: "28점박이무당벌레", kind: "해충", imagePath: "repo/images/9.jpg"));
   }
   Future getImage(ImageSource imageSource) async {
     final image = await picker.pickImage(source: imageSource);

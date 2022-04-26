@@ -36,7 +36,7 @@ class dictionaryPage extends StatelessWidget {
                             height: 80,
                           ),
                           SizedBox(width: 4,),
-                          Text(pestList[index].pestName!,style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold ),),
+                         // Text(pestList[index].pestName!,style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold ),),
                         ],
                       ),
                       Container(

@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 
 class Pest {
   String? imagePath;
-  String? pestName;
-  String? kind;
+  String? name;
+  String? targetCrop;
 
   Pest(
-      {required this.pestName,
-      required this.kind,
+      {required this.targetCrop,
+      required this.name,
       required this.imagePath,
+      
       });
 }
