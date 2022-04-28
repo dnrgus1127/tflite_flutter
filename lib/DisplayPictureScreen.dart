@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:fluting/AI.dart';
 import 'package:fluting/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite/tflite.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
   final File? imagePath;
@@ -11,29 +11,39 @@ class DisplayPictureScreen extends StatefulWidget {
   const DisplayPictureScreen({Key? key, this.imagePath}) : super(key: key);
 
   @override
-  _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
+  _DisplayPictureScreen createState() => _DisplayPictureScreen();
 }
 
-class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+class _DisplayPictureScreen extends State<DisplayPictureScreen> {
   File? imageTemp;
-  List? _outputs;
+  
   String? label = "Defalut Value";
 
   @override
   void initState() {
     super.initState();
-    loadModel().then((value) {
-      setState(() {});
-    });
+    // loadModel().then((value) {
+    //   setState(() {});
+    // });
     imageTemp = widget.imagePath;
-    classifyImage(imageTemp!).then((_) {
-      label = _outputs![0]['label'];
+    // classifyImage(imageTemp!).then((_) {
+    //   label = _outputs![0]['label'];
+    // });
+    aiAnaly().then((_){
+      setState(() {
+        
+      });
     });
+  }
+
+  Future aiAnaly () async {
+    await AiAnal.aiAnal(imageTemp).then((value) => label = value);    
+    
   }
 
   @override
   void dispose() {
-    Tflite.close();
+    //Tflite.close();
     super.dispose();
   }
 
@@ -43,7 +53,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       //appBar: AppBar(title: Text('Display the Picture')),
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context), 
       // 이미지는 디바이스에 파일로 저장됩니다. 이미지를 보여주기 위해 주어진
       // 경로로 `Image.file`을 생성하세요.
       body: _pictureBody(context),
@@ -141,29 +151,29 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     );
   }
 
-  loadModel() async {
-    await Tflite.loadModel(
-            model: "assets/model96.tflite", labels: "assets/label.txt")
-        .then((value) {
-      setState(() {});
-    });
-  }
+//   loadModel() async {
+//     await Tflite.loadModel(
+//             model: "assets/model96.tflite", labels: "assets/label.txt")
+//         .then((value) {
+//       setState(() {});
+//     });
+//   }
 
-  Future classifyImage(File image) async {
-    print("출력 $image");
-    var output = await Tflite.runModelOnImage(
-        path: image.path, // required
-        imageMean: 0.0, // defaults to 117.0
-        imageStd: 255.0, // defaults to 1.0
-        numResults: 10, // defaults to 5
-        threshold: 0.2, // defaults to 0.1
-        asynch: true // defaults to true
-        );
-    setState(() {
-      _outputs = output;
-      print("setState");
-    });
-  }
+//   Future classifyImage(File image) async {
+//     print("출력 $image");
+//     var output = await Tflite.runModelOnImage(
+//         path: image.path, // required
+//         imageMean: 0.0, // defaults to 117.0
+//         imageStd: 255.0, // defaults to 1.0
+//         numResults: 10, // defaults to 5
+//         threshold: 0.2, // defaults to 0.1
+//         asynch: true // defaults to true
+//         );
+//     setState(() {
+//       _outputs = output;
+//       //print("setState");
+//     });
+//   }
 }
 
 class Description extends StatelessWidget {
