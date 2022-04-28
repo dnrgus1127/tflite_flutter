@@ -1,16 +1,16 @@
 
 
 import 'dart:io';
+import 'package:fluting/AI.dart';
 import 'package:fluting/DisplayPictureScreen.dart';
 import 'package:fluting/constant.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ImageCrop extends StatefulWidget {
   final String title;
-  File? imageFile;
+  final File? imageFile;
   ImageCrop({required this.title, this.imageFile});
 
   @override
@@ -26,6 +26,7 @@ enum AppState {
 class _ImageCrop extends State<ImageCrop> {
   AppState? state;
   File? _imageTemp;
+  String? label = "error";
   //File? imageFile = widget.imagefile;
 
   @override
@@ -79,15 +80,23 @@ class _ImageCrop extends State<ImageCrop> {
                   child: Text("진단"),
                   color: kPrimaryColor,
                   onPressed: () async {
-                    await Navigator.push(context, 
-                      MaterialPageRoute(builder: (context){
-                        return DisplayPictureScreen(
-                              imagePath: _imageTemp,
-                            );
-                          },
-                          fullscreenDialog: true),
-                    );
-                    Navigator.pop(context);
+                    aiAnaly().then((_) {
+                      setState(() {});
+                    });
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) {
+                              return DisplayPictureScreen(
+                                label: label,
+                              );
+                            },
+                            fullscreenDialog: true),
+                      );
+                    });
+
+                    // Navigator.pop(context);
                   },
                 ),
                 Spacer(),
@@ -139,6 +148,12 @@ class _ImageCrop extends State<ImageCrop> {
   //   }
   // }
 
+  
+  Future aiAnaly () async {
+    await AiAnal.aiAnal(_imageTemp).then((value) => label = value);    
+    
+  }
+
   Future<Null> _cropImage() async {
     File? croppedFile = await ImageCropper().cropImage(
         sourcePath: widget.imageFile!.path,
@@ -180,10 +195,10 @@ class _ImageCrop extends State<ImageCrop> {
     }
   }
 
-  void _clearImage() {
-    widget.imageFile = null;
-    setState(() {
-      state = AppState.free;
-    });
-  }
+  // void _clearImage() {
+  //   widget.imageFile = null;
+  //   setState(() {
+  //     state = AppState.free;
+  //   });
+  // }
 }

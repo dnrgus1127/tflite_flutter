@@ -6,9 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DisplayPictureScreen extends StatefulWidget {
-  final File? imagePath;
+  //final File? imagePath;
+  final String? label;
 
-  const DisplayPictureScreen({Key? key, this.imagePath}) : super(key: key);
+  const DisplayPictureScreen({Key? key, this.label}) : super(key: key);
 
   @override
   _DisplayPictureScreen createState() => _DisplayPictureScreen();
@@ -25,15 +26,15 @@ class _DisplayPictureScreen extends State<DisplayPictureScreen> {
     // loadModel().then((value) {
     //   setState(() {});
     // });
-    imageTemp = widget.imagePath;
+    label = widget.label;
     // classifyImage(imageTemp!).then((_) {
     //   label = _outputs![0]['label'];
     // });
-    aiAnaly().then((_){
-      setState(() {
+    // aiAnaly().then((_){
+    //   setState(() {
         
-      });
-    });
+    //   });
+    // });
   }
 
   Future aiAnaly () async {
@@ -142,7 +143,7 @@ class _DisplayPictureScreen extends State<DisplayPictureScreen> {
                     ],
                   ),
                 ),
-                TitleWithImage(imageTemp: imageTemp, label: label,)
+                TitleWithImage(imageTemp: "repo/images/1.jpg", label: label,)
               ],
             ),
           )
@@ -272,7 +273,7 @@ class TitleWithImage extends StatelessWidget {
     @required this.label,
   }) : super(key: key);
 
-  final File? imageTemp;
+  final String? imageTemp;
 
   @override
   Widget build(BuildContext context) {
@@ -315,7 +316,7 @@ class TitleWithImage extends StatelessWidget {
               //SizedBox(width: kDefaultPadding / 2),
               Spacer(),
               ClipRRect(
-                child: Image.file(imageTemp!,
+                child: Image.asset(imageTemp!,
                     fit: BoxFit.fill, width: 220, height: 220),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),

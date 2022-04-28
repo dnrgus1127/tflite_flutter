@@ -103,7 +103,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                           MaterialPageRoute(
                             builder: (context) {
                               return DisplayPictureScreen(
-                                imagePath: File('$pestlist[index].imagePath!'),
+                                label: "배추흰나비",
                               );
                             },
                           ),

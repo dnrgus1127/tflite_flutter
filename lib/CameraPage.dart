@@ -4,10 +4,8 @@ import 'package:camera/camera.dart';
 import 'package:fluting/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import './main.dart';
-import 'DisplayPictureScreen.dart';
 
 class VideoPage extends StatefulWidget {
   @override
