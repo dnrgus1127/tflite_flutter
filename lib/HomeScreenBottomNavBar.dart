@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'constant.dart';
+import 'Constant.dart';
 
-class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({
+class HomeBottomNavBar extends StatelessWidget {
+  const HomeBottomNavBar({
     Key? key,
   }) : super(key: key);
 

@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:tflite/tflite.dart';
 
-class AiAnal {
+class AiDoctor {
   //static String? label;
   //static File? imagePath;
   static List? _outputs;
-  AiAnal(
+  AiDoctor(
   );
 
-  static Future aiAnal(File? imagePath) async {
+  static Future Doctor(File? imagePath) async {
     loadModel();
     
     await classifyImage(imagePath!).then((value) => {_outputs = value,Tflite.close()});

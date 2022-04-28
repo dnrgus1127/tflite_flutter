@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:fluting/constant.dart';
+import 'package:fluting/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import './constant.dart';
-import './HeaderWithSearchBox.dart';
-import 'ImageCrop.dart';
-import 'VideoPage.dart';
+import 'Constant.dart';
+import 'HomeBodyHeaderWithSearchbox.dart';
+import 'PestImageCropPage.dart';
+import 'CameraPage.dart';
 
-class Body extends StatelessWidget {
+class HomeBody extends StatelessWidget {
   File? imageFile;
 
   
@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          HeaderWithSearchBox(size: size),
+          HomeBodyHeaderWithSearchBox(size: size),
           Container(
             padding: EdgeInsets.only(
               left: kDefaultPadding * 1.8,
@@ -48,14 +48,14 @@ class Body extends StatelessWidget {
                     onPressed: () async {
                       final result = await Navigator.push(context, 
                       MaterialPageRoute(builder: (context){
-                        return VideoPage();
+                        return CameraPage();
                       },fullscreenDialog: true), );
 
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ImageCrop(
+                            return PestImageCropPage(
                               title: "이미지 자르기",
                               imageFile: result,
                             );
@@ -95,7 +95,7 @@ class Body extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return ImageCrop(
+                              return PestImageCropPage(
                                 title: "이미지 자르기",
                                 imageFile: imageFile,
                               );

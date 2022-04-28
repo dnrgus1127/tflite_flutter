@@ -1,17 +1,17 @@
-import 'package:fluting/constant.dart';
+import 'package:fluting/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import './body.dart';
+import 'HomeScreenBody.dart';
 import 'PestDictionaryPage.dart';
-import 'bottomNavBar.dart';
+import 'HomeScreenBottomNavBar.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
-      bottomNavigationBar: BottomNavBar(),
+      body: HomeBody(),
+      bottomNavigationBar: HomeBottomNavBar(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_enhance),
         backgroundColor: kPrimaryColor,

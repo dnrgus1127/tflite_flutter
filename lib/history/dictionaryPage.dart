@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'pestItem.dart';
+import '../Pest.dart';
 
 class dictionaryPage extends StatelessWidget {
   final List<Pest> pestList;

@@ -1,10 +1,10 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/cupertino.dart';
-import 'package:fluting/MainPage.dart';
-import 'package:fluting/camera2.dart';
-import 'package:fluting/dictionaryPage.dart';
-import 'pestItem.dart';
+import 'package:fluting/history/MainPage.dart';
+import 'package:fluting/history/camera2.dart';
+import 'package:fluting/history/dictionaryPage.dart';
+import '../Pest.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 

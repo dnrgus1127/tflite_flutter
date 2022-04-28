@@ -1,20 +1,20 @@
 
 
 import 'dart:io';
-import 'package:fluting/AI.dart';
-import 'package:fluting/DisplayPictureScreen.dart';
-import 'package:fluting/constant.dart';
+import 'package:fluting/AiDoctor.dart';
+import 'package:fluting/PestInformationPage.dart';
+import 'package:fluting/Constant.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ImageCrop extends StatefulWidget {
+class PestImageCropPage extends StatefulWidget {
   final String title;
   final File? imageFile;
-  ImageCrop({required this.title, this.imageFile});
+  PestImageCropPage({required this.title, this.imageFile});
 
   @override
-  _ImageCrop createState() => _ImageCrop();
+  _PestImageCropPage createState() => _PestImageCropPage();
 }
 
 enum AppState {
@@ -23,7 +23,7 @@ enum AppState {
   cropped,
 }
 
-class _ImageCrop extends State<ImageCrop> {
+class _PestImageCropPage extends State<PestImageCropPage> {
   AppState? state;
   File? _imageTemp;
   String? label = "error";
@@ -69,6 +69,7 @@ class _ImageCrop extends State<ImageCrop> {
                 : Container(),
             //SizedBox(height:30),
             Padding(
+              
               padding: const EdgeInsets.only(top: 60),
               child: Text("곤충이 위 사각형에 90%이상 꽉차게 맞춰 주세요!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
             ),
@@ -80,7 +81,7 @@ class _ImageCrop extends State<ImageCrop> {
                   child: Text("진단"),
                   color: kPrimaryColor,
                   onPressed: () async {
-                    aiAnaly().then((_) {
+                    aiDoctor().then((_) {
                       setState(() {});
                     });
                     Future.delayed(const Duration(milliseconds: 1000), () {
@@ -149,8 +150,8 @@ class _ImageCrop extends State<ImageCrop> {
   // }
 
   
-  Future aiAnaly () async {
-    await AiAnal.aiAnal(_imageTemp).then((value) => label = value);    
+  Future aiDoctor () async {
+    await AiDoctor.Doctor(_imageTemp).then((value) => label = value);    
     
   }
 

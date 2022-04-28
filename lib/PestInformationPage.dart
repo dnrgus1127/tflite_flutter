@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fluting/AI.dart';
-import 'package:fluting/constant.dart';
+import 'package:fluting/AiDoctor.dart';
+import 'package:fluting/Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,10 +37,10 @@ class _DisplayPictureScreen extends State<DisplayPictureScreen> {
     // });
   }
 
-  Future aiAnaly () async {
-    await AiAnal.aiAnal(imageTemp).then((value) => label = value);    
+  // Future aiAnaly () async {
+  //   await AiDoctor.Doctor(imageTemp).then((value) => label = value);    
     
-  }
+  // }
 
   @override
   void dispose() {

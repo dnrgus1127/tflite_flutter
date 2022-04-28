@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'constant.dart';
+import '../Constant.dart';
 
 class MyBottonNavBar extends StatelessWidget {
   const MyBottonNavBar({

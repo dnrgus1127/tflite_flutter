@@ -1,18 +1,18 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:fluting/constant.dart';
+import 'package:fluting/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import './main.dart';
 
-class VideoPage extends StatefulWidget {
+class CameraPage extends StatefulWidget {
   @override
-  _VideoPageState createState() => _VideoPageState();
+  _CameraPageState createState() => _CameraPageState();
 }
 
-class _VideoPageState extends State<VideoPage> {
+class _CameraPageState extends State<CameraPage> {
   
   CameraController _cameraController =
       CameraController(cameras![0], ResolutionPreset.medium,);

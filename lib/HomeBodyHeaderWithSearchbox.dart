@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import './constant.dart';
+import 'Constant.dart';
 
 
 
-class HeaderWithSearchBox extends StatelessWidget {
-  const HeaderWithSearchBox({
+class HomeBodyHeaderWithSearchBox extends StatelessWidget {
+  const HomeBodyHeaderWithSearchBox({
     Key? key,
     @required this.size,
   }) : super(key: key);

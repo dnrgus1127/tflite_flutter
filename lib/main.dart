@@ -1,9 +1,9 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:camera/camera.dart';
-import 'package:fluting/home_screen.dart';
+import 'package:fluting/HomeScreen.dart';
 import 'package:flutter/material.dart';
-import './constant.dart';
+import 'Constant.dart';
 
 List<CameraDescription>? cameras;
 

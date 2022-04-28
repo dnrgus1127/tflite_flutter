@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:fluting/constant.dart';
+import 'package:fluting/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
-import './body.dart';
-import 'DisplayPictureScreen.dart';
-import 'bottomNavBar.dart';
-import 'pestItem.dart';
+import 'HomeScreenBody.dart';
+import 'PestInformationPage.dart';
+import 'HomeScreenBottomNavBar.dart';
+import 'Pest.dart';
 
 class DictionaryPage extends StatefulWidget {
   @override
