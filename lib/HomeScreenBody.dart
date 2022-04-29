@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluting/Constant.dart';
+import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'Constant.dart';
 import 'HomeBodyHeaderWithSearchbox.dart';
 import 'PestImageCropPage.dart';
 import 'CameraPage.dart';
+import 'PestInformationPage.dart';
 
 class HomeBody extends StatelessWidget {
   File? imageFile;
@@ -51,17 +53,19 @@ class HomeBody extends StatelessWidget {
                         return CameraPage();
                       },fullscreenDialog: true), );
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return PestImageCropPage(
-                              title: "이미지 자르기",
-                              imageFile: result,
-                            );
-                          },
-                        ),
-                      );
+                      if (imageFile != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PestImageCropPage(
+                                title: "이미지 자르기",
+                                imageFile: result,
+                              );
+                            },
+                          ),
+                        );
+                      }
                     },
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                     minSize: 0,
@@ -119,12 +123,12 @@ class HomeBody extends StatelessWidget {
           ),
           TitleWithMoreBtn(
             title: "해충 사전",
-            press: () {},
+            materialRoutePage: PestDictionaryPage(),
           ),
           RecomendsPests(),
           TitleWithMoreBtn(
             title: "최근 조회",
-            press: () {},
+            materialRoutePage: PestDictionaryPage(),
           ),
           RecomendsPests(),
           SizedBox(height: kDefaultPadding,)
@@ -156,37 +160,31 @@ class RecomendsPests extends StatelessWidget {
             image: "repo/images/4.png",
             name: "노린재",
             kinds: "해충",
-            press: (){},
           ),
           RecomendedPestCard(
             image: "repo/images/2.jpg",
             name: "카나리",
             kinds: "해충",
-            press: (){},
           ),
           RecomendedPestCard(
             image: "repo/images/3.jpg",
             name: "가루이",
             kinds: "해충",
-            press: (){},
           ),
           RecomendedPestCard(
             image: "repo/images/5.jpg",
             name: "검거세미나방",
             kinds: "나방",
-            press: (){},
           ),
           RecomendedPestCard(
             image: "repo/images/6.jpg",
             name: "도둑나방",
             kinds: "나방",
-            press: (){},
           ),
           RecomendedPestCard(
             image: "repo/images/8.jpg",
             name: "배추잎나방",
             kinds: "해충",
-            press: (){},
           ),
         ],
       ),
@@ -200,39 +198,43 @@ class RecomendedPestCard extends StatelessWidget {
     this.image,
     this.name,
     this.kinds,
-    this.press,
   }) : super(key: key);
 
-  final String? image, name, kinds;
-  final Function? press;
+  final String? image, kinds;
+  //final Function? press;
+  @required final String? name;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.only(
-          left: kDefaultPadding,
-          top: kDefaultPadding / 3,
-          bottom: kDefaultPadding * 1.1, 
-          ),
-      width: size.width * 0.25,
-      child: Column(
-        children: <Widget>[
-          ClipRRect(
-            child: Image.asset(
-              image!,
-              fit: BoxFit.fill,
-              width: 150,
-              height: 80,
+    return GestureDetector(
+      onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return PestInfomationPage(label: name);
+              }));
+            },
+      child: Container(
+        margin: EdgeInsets.only(
+            left: kDefaultPadding,
+            top: kDefaultPadding / 3,
+            bottom: kDefaultPadding * 1.1, 
             ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
+        width: size.width * 0.25,
+        child: Column(
+          children: <Widget>[
+            ClipRRect(
+              child: Image.asset(
+                image!,
+                fit: BoxFit.fill,
+                width: 150,
+                height: 80,
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
             ),
-          ),
-          GestureDetector(
-            onTap: () => press,
-            child: Container(
+            Container(
               padding: EdgeInsets.all(kDefaultPadding / 2),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -273,9 +275,9 @@ class RecomendedPestCard extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          
-        ],
+            
+          ],
+        ),
       ),
     );
   }
@@ -285,11 +287,14 @@ class TitleWithMoreBtn extends StatelessWidget {
   const TitleWithMoreBtn({
     Key? key,
     this.title,
-    this.press,
+    //this.press,
+    this.materialRoutePage,
   }) : super(key: key);
 
   final String? title;
-  final Function? press;
+  //final Function? press;
+  @required final Widget? materialRoutePage;
+
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +307,10 @@ class TitleWithMoreBtn extends StatelessWidget {
           ),
           Spacer(),
           ElevatedButton(
-            onPressed: () => press,
+            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return materialRoutePage!;
+            }));
+            },
             child: Text(
               "더 보기",
               style: TextStyle(color: Colors.white),

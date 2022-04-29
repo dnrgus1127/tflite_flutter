@@ -1,21 +1,20 @@
 import 'dart:io';
 
-import 'package:fluting/AiDoctor.dart';
 import 'package:fluting/Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DisplayPictureScreen extends StatefulWidget {
+class PestInfomationPage extends StatefulWidget {
   //final File? imagePath;
   final String? label;
 
-  const DisplayPictureScreen({Key? key, this.label}) : super(key: key);
+  const PestInfomationPage({Key? key, this.label}) : super(key: key);
 
   @override
-  _DisplayPictureScreen createState() => _DisplayPictureScreen();
+  _PestInfomationPage createState() => _PestInfomationPage();
 }
 
-class _DisplayPictureScreen extends State<DisplayPictureScreen> {
+class _PestInfomationPage extends State<PestInfomationPage> {
   File? imageTemp;
   
   String? label = "Defalut Value";

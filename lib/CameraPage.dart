@@ -100,7 +100,7 @@ class _CameraPageState extends State<CameraPage> {
                       onTap: () => Navigator.pop(context),
                       child: Icon(
                         Icons.close,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                     //SizedBox(width: 1,),
