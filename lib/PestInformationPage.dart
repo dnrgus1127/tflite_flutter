@@ -1,14 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:fluting/Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'Pest.dart';
 
 class PestInfomationPage extends StatefulWidget {
   //final File? imagePath;
-  final String? label;
-
-  const PestInfomationPage({Key? key, this.label}) : super(key: key);
+  final String? name;
+  const PestInfomationPage({Key? key, @required this.name}) : super(key: key);
 
   @override
   _PestInfomationPage createState() => _PestInfomationPage();
@@ -16,34 +19,44 @@ class PestInfomationPage extends StatefulWidget {
 
 class _PestInfomationPage extends State<PestInfomationPage> {
   File? imageTemp;
-  
-  String? label = "Defalut Value";
 
+  List data = List.empty(growable: true);
+
+  String? name = "Defalut Value";
+  String? damage = "";
+  String? solution = "";
+  String? shape ="";
+  String? target = "";
+  String imagePath = "";
+  Pest? pest;
   @override
   void initState() {
     super.initState();
-    // loadModel().then((value) {
-    //   setState(() {});
-    // });
-    label = widget.label;
-    // classifyImage(imageTemp!).then((_) {
-    //   label = _outputs![0]['label'];
-    // });
-    // aiAnaly().then((_){
-    //   setState(() {
-        
-    //   });
-    // });
+    name = widget.name;
+
+    this.loadJsonData().then((value) {
+      for(var i in data) {
+        if (i['name'] == name) {
+          name = i['name'];
+          target = i['target'];
+          imagePath = "repo/images/" + i['name'] + ".jpg";
+          solution = i['solution'];
+          shape = i['shape'];
+          damage = i['damage'];
+        }
+      }
+    });
+ 
   }
 
-  // Future aiAnaly () async {
-  //   await AiDoctor.Doctor(imageTemp).then((value) => label = value);    
-    
-  // }
+   Future<String> loadJsonData() async {
+    var jsonText = await rootBundle.loadString('assets/pest.json');
+    setState(() => data = json.decode(jsonText));
+    return 'success';
+  }
 
   @override
   void dispose() {
-    //Tflite.close();
     super.dispose();
   }
 
@@ -117,32 +130,31 @@ class _PestInfomationPage extends State<PestInfomationPage> {
                           blurRadius: 10,
                           color: Colors.black.withOpacity(0.15),
                         ),
-                      ]
-                      ),
+                      ]),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PestName(
-                        label: label,
+                        name: name,
                       ),
+                      Description(title: "대상 작물", content: target),
                       Description(
                         title: "형태",
-                        content:
-                            "성충은 몸길이가 7mm내외,날개를 편 길이는 12mm 내외이다. 머리는흑색이고, 가슴은 배 부분이 등황색이며 날개는 약간 검은 회색이고, 특히앞날개의 기부는진하다. 알은 원형으로 담록색이며 직경이0.7mm이고 잎의 조직속에 산란한다. 유충은 전체가 자흑색에 가는 가로 주름이 많이있고, 검은 벨벳의광택이있다. 가슴은 약간부풀어있고 성장하면15~20mm 에달한다",
+                        content: shape,
                       ),
                       Description(
                         title: "피해",
-                        content:
-                            "유충은 십자화 과채 소등의 잎을 갉아 먹으며, 피해받은 흔적은 배추흰나비와 밤나방유충의 것과 비슷하지만 큰잎줄기만을 남기며 가장자리부터 갉아 먹는 점이 다르다. 봄에서 가을까지 발생하며, 특히  가을에 피해가 심하다",
+                        content: damage,
                       ),
                       Description(
                         title: "방제방법",
-                        content:
-                            "통풍을 양호하게 하고, 솎아 주어 작물을 연약하지않게 하는 것 이 중요하다.애벌레의 피해가 보이면 적용약제를 살포한다.",
+                        content: solution,
                       ),
+                      Description(title: "출처", content: "농촌 진흥원, 국가농작물 병해충 관리 시스템")
                     ],
                   ),
                 ),
-                TitleWithImage(imageTemp: "repo/images/1.jpg", label: label,)
+                TitleWithImage(imageTemp: "repo/images/"+ name! +".jpg", name: name,)
               ],
             ),
           )
@@ -151,29 +163,7 @@ class _PestInfomationPage extends State<PestInfomationPage> {
     );
   }
 
-//   loadModel() async {
-//     await Tflite.loadModel(
-//             model: "assets/model96.tflite", labels: "assets/label.txt")
-//         .then((value) {
-//       setState(() {});
-//     });
-//   }
 
-//   Future classifyImage(File image) async {
-//     print("출력 $image");
-//     var output = await Tflite.runModelOnImage(
-//         path: image.path, // required
-//         imageMean: 0.0, // defaults to 117.0
-//         imageStd: 255.0, // defaults to 1.0
-//         numResults: 10, // defaults to 5
-//         threshold: 0.2, // defaults to 0.1
-//         asynch: true // defaults to true
-//         );
-//     setState(() {
-//       _outputs = output;
-//       //print("setState");
-//     });
-//   }
 }
 
 class Description extends StatelessWidget {
@@ -209,11 +199,11 @@ class Description extends StatelessWidget {
 }
 
 class PestName extends StatelessWidget {
-  final String? label;
+  final String? name;
 
   const PestName({
     Key? key,
-    final this.label,
+    final this.name,
   }) : super(key: key);
 
   @override
@@ -250,7 +240,7 @@ class PestName extends StatelessWidget {
               text: TextSpan(style: TextStyle(color: kPrimaryColor), children: [
             TextSpan(text: "명칭\n"),
             TextSpan(
-                text: "$label",
+                text: "$name",
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
@@ -263,13 +253,13 @@ class PestName extends StatelessWidget {
 }
 
 class TitleWithImage extends StatelessWidget {
-    final String? label;
+    final String? name;
 
 
   const TitleWithImage({
     Key? key,
     @required this.imageTemp,
-    @required this.label,
+    @required this.name,
   }) : super(key: key);
 
   final String? imageTemp;
@@ -282,18 +272,18 @@ class TitleWithImage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // Row나 Column 정렬
         children: [
-          Text(
-            "진단 결과",
-            style: TextStyle(color: Colors.white),
-          ),
+          // Text(
+          //   "진단 결과",
+          //   style: TextStyle(color: Colors.white),
+          // ),
           Text(
             "해충",
             style: Theme.of(context).textTheme.headline4!.copyWith(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
           ),
-          SizedBox(
-            height: kDefaultPadding / 2,
-          ),
+          // SizedBox(
+          //   height: kDefaultPadding / 2,
+          // ),
           Row(
             children: <Widget>[
               //Icon(CupertinoIcons.bookmark_fill,color: Colors.yellow,),
@@ -316,7 +306,7 @@ class TitleWithImage extends StatelessWidget {
               Spacer(),
               ClipRRect(
                 child: Image.asset(imageTemp!,
-                    fit: BoxFit.fill, width: 220, height: 220),
+                    fit: BoxFit.fill, width: 200, height: 200),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),

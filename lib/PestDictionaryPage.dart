@@ -1,7 +1,10 @@
 
+import 'dart:convert';
+
 import 'package:fluting/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'PestInformationPage.dart';
 import 'Pest.dart';
 
@@ -12,63 +15,50 @@ class PestDictionaryPage extends StatefulWidget {
 
 class _PestDictionaryPageState extends State<PestDictionaryPage> {
   TextEditingController editingController = TextEditingController();
-
+  List data = List.empty(growable: true);
   final List<Pest> pestlist = List.empty(growable: true);
   final List<Pest> list = List.empty(growable: true);
   var items = List.empty(growable: true);
   @override
   void initState() {
     super.initState();
-    pestlist.add(Pest(
-        name: "검거세미나방",
-        targetCrop: "담배, 토마토, 오이, 콩, 감자, 가지 등",
-        imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "검거세미나방", targetCrop: "해충", imagePath: "repo/images/2.jpg"));
-    pestlist.add(
-        Pest(name: "담배가루이", targetCrop: "토마토", imagePath: "repo/images/3.jpg"));
-    pestlist.add(
-        Pest(name: "먹노린재", targetCrop: "해충", imagePath: "repo/images/4.png"));
-    pestlist.add(
-        Pest(name: "꽃노랑총채벌레", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "담배거세미나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "담배나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "도둑나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "목화바둑명나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "무잎벌", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "배추좀나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "배추흰나비", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "벼룩잎벌레", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "복숭아혹진딧물", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "비단노린재", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "썩덩나무노린재", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "알락수염노린재", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "열대거세미나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "큰28점박이무당벌레	", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "톱다리개미허리노린재	", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    pestlist.add(
-        Pest(name: "파밤나방", targetCrop: "해충", imagePath: "repo/images/1.jpg"));
-    items.addAll(pestlist);
+
+    this.loadJsonData().then((value) {
+      for (var i in data) {
+        pestlist.add(Pest(
+            name: i['name'],
+            targetCrop: i['target'],
+            imagePath: "repo/images/" + i['name'] + ".jpg",
+            solution: i['solution'],
+            shape: i['shape'],
+            damage: i['damage'],
+          ),
+        );
+      }
+      items.addAll(pestlist);
+    });
+    
     // for(int i=0;i<pestlist.length;i++){
     //   list.add(pestlist[i].name!);
     // }
     //pestlist.sort((a,b) => true ? a.name.compareTo(b.name!) : b.name.compareTo(a.name!));
     //pestlist.sort((a,b) => a.name!.compareTo(b.name!));
+    
+    //print(list);
+  }
+  // List searchPest(List data, String name){
+  //   for(var i in data){
+  //     if(data[i]['name'] == name){
+  //       return data[i];
+  //     }
+  //   }
+  //   return data[0];
+  // }
+
+  Future<String> loadJsonData() async {
+    var jsonText = await rootBundle.loadString('assets/pest.json');
+    setState(() => data = json.decode(jsonText));
+    return 'success';
   }
 
   void filterSearchResults (String query){
@@ -176,7 +166,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return PestInfomationPage(
-                                  label: items[index].name,
+                                  name: items[index].name,
                                 );
                               },
                             ),
@@ -212,7 +202,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
                                         ),
                                         TextSpan(
                                           text: "${items[index].targetCrop}",
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.black,fontSize: 10),
                                         )
                                       ],
                                     ),

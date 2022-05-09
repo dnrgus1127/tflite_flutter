@@ -158,22 +158,22 @@ class RecomendsPests extends StatelessWidget {
         children: [
           RecomendedPestCard(
             image: "repo/images/4.png",
-            name: "노린재",
+            name: "먹노린재",
             kinds: "해충",
           ),
           RecomendedPestCard(
             image: "repo/images/2.jpg",
-            name: "카나리",
+            name: "꽃노랑총채벌레",
             kinds: "해충",
           ),
           RecomendedPestCard(
             image: "repo/images/3.jpg",
-            name: "가루이",
+            name: "담배가루이",
             kinds: "해충",
           ),
           RecomendedPestCard(
             image: "repo/images/5.jpg",
-            name: "검거세미나방",
+            name: "검거세미밤나방",
             kinds: "나방",
           ),
           RecomendedPestCard(
@@ -183,7 +183,7 @@ class RecomendsPests extends StatelessWidget {
           ),
           RecomendedPestCard(
             image: "repo/images/8.jpg",
-            name: "배추잎나방",
+            name: "목화바둑명나방",
             kinds: "해충",
           ),
         ],
@@ -210,7 +210,7 @@ class RecomendedPestCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PestInfomationPage(label: name);
+                return PestInfomationPage(name: name);
               }));
             },
       child: Container(

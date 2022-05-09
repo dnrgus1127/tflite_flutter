@@ -59,8 +59,29 @@ flutter:
    - repo/images/7.jpg
    - repo/images/8.jpg
    - repo/images/9.jpg
+   - repo/images/검거세미밤나방.jpg
+   - repo/images/꽃노랑총채벌레.jpg
+   - repo/images/담배가루이.jpg
+   - repo/images/담배거세미나방.jpg
+   - repo/images/담배나방.jpg
+   - repo/images/도둑나방.jpg
+   - repo/images/먹노린재.jpg
+   - repo/images/목화바둑명나방.jpg
+   - repo/images/무잎벌.jpg
+   - repo/images/배추좀나방.jpg
+   - repo/images/배추흰나비.jpg
+   - repo/images/벼룩잎벌레.jpg
+   - repo/images/복숭아혹진딧물.jpg
+   - repo/images/비단노린재.jpg
+   - repo/images/썩덩나무노린재.jpg
+   - repo/images/알락수염노린재.jpg
+   - repo/images/열대거세미나방.jpg
+   - repo/images/큰28점박이무당벌레.jpg
+   - repo/images/톱다리개미허리노린재.jpg
+   - repo/images/파밤나방.jpg
    - assets/label.txt
    - assets/model96.tflite
+   - assets/pest.json
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

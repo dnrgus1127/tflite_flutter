@@ -90,7 +90,7 @@ class _PestImageCropPage extends State<PestImageCropPage> {
                         MaterialPageRoute(
                             builder: (context) {
                               return PestInfomationPage(
-                                label: label,
+                                name: label,
                               );
                             },
                             fullscreenDialog: true),
