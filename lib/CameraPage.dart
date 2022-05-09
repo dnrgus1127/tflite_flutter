@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import './main.dart';
+import 'PestImageCropPage.dart';
 
 class CameraPage extends StatefulWidget {
   @override
@@ -211,6 +212,17 @@ class _CameraPageState extends State<CameraPage> {
                                 
                         //   ),
                         // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PestImageCropPage(
+                                title: "이미지 자르기",
+                                imageFile: imageFile,
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.all(4),

@@ -117,7 +117,7 @@ class _PestInfomationPage extends State<PestInfomationPage> {
                       top: size.height * 0.05,
                       left: kDefaultPadding,
                       right: kDefaultPadding),
-                  height: 500,
+                  height: 600,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
