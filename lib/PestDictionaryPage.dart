@@ -68,7 +68,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
       List<Pest> dummyListData = List.empty(growable: true);
       //dummySearchList.forEach((item) {
       dummySearchList.forEach((item) {
-      if (item.name!.contains(query)) {
+      if (item.name!.contains(query) || item.targetCrop!.contains(query)) {
           dummyListData.add(item);
           dummyListData.sort((a,b) => a.name!.compareTo(b.name!));
         }
@@ -127,7 +127,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
                         },
                         controller: editingController,
                         decoration: InputDecoration(
-                          hintText: "해충 이름 검색",
+                          hintText: "작물 / 해충 이름 검색",
                           hintStyle:
                               TextStyle(color: Colors.grey.withOpacity(0.8)),
                           enabledBorder: InputBorder.none,
