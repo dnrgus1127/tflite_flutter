@@ -11,22 +11,22 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: HomeBody(),
-      bottomNavigationBar: HomeBottomNavBar(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_enhance),
-        backgroundColor: kPrimaryColor,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return PestDictionaryPage();
-              },
-            ),
-          );
-        },
+      // bottomNavigationBar: HomeBottomNavBar(),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.camera_enhance),
+      //   backgroundColor: kPrimaryColor,
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) {
+      //           return PestDictionaryPage();
+      //         },
+      //       ),
+      //     );
+      //   },
         
-      ),
+      // ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
     );

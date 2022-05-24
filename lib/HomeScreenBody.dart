@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fluting/BookMarkPage.dart';
 import 'package:fluting/Constant.dart';
 import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class HomeBody extends StatelessWidget {
           RecomendsPests(),
           TitleWithMoreBtn(
             title: "최근 조회",
-            materialRoutePage: PestDictionaryPage(),
+            materialRoutePage: BookMarkPage(),
           ),
           RecomendsPests(),
           SizedBox(height: kDefaultPadding,)

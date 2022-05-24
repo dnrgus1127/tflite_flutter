@@ -27,13 +27,9 @@ class _BookMarkPageState extends State<BookMarkPage> {
   Widget build(BuildContext context) {
     Size? size = MediaQuery.of(context).size;
     insertBookMark(fido);
-    insertBookMark(fido2);
-    insertBookMark(fido3);
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () => {
-        for(int i  =0; i< bmList.length; i++){
-          deleteAll()
-        }
+        deleteAll()
       },),
       appBar: AppBar(title: Text("BookMarkPage",style: TextStyle(color: Colors.white),),backgroundColor: kPrimaryColor,elevation: 0,),
       body: Container(
@@ -198,17 +194,21 @@ Future<void> insertBookMark(BookMark bookMark) async {
   final Database db = await initDatabase();
 
   await db.insert('bookMark', bookMark.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace);
+      conflictAlgorithm: ConflictAlgorithm.replace, );
+  //db.execute("SELECT DISTINCT")
 }
 
 Future<Database> initDatabase() async {
   // 데이터베이스를 열어서 반환해주는
   return openDatabase(
-    join(await getDatabasesPath(), 'bookMark.db'),
+    join(await getDatabasesPath(), 'bookMark4.db'),
     onCreate: (db, version) {
       return db.execute(
         "CREATE TABLE bookmark(id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "name TEXT UNQUE INDEX)",
+        "name TEXT)",
+        // "CREATE TABLE bookmark(id INTEGER, "
+        // "name TEXT PRIMARY KEY)",
+        
       );
     },
     version: 1,
@@ -232,7 +232,7 @@ Future<List<BookMark>> bookMarks() async {
   final Database db = await initDatabase();
 
   // 모든 Bookmark를 얻기 위해 테이블에 질의.
-  final List<Map<String, dynamic>> maps = await db.query('bookMark');
+  final List<Map<String, dynamic>> maps = await db.query('bookMark',distinct: true);
 
   // List<Map<String, dynamic>를 List<bookmark>으로 변환합니다.
   return List.generate(maps.length, (i) {
@@ -243,7 +243,7 @@ Future<List<BookMark>> bookMarks() async {
   });
 }
 
-Future<void> deleteDog(int id) async {
+Future<void> deleteDog(String name) async {
   // 데이터베이스 reference를 얻습니다.
   final db = await initDatabase();
 
@@ -251,9 +251,9 @@ Future<void> deleteDog(int id) async {
   await db.delete(
     'bookMark',
     // 특정 dog를 제거하기 위해 `where` 절을 사용하세요
-    where: "id = ?",
+    where: "name = ?",
     // Dog의 id를 where의 인자로 넘겨 SQL injection을 방지합니다.
-    whereArgs: [id],
+    whereArgs: [name],
   );
 }
 
