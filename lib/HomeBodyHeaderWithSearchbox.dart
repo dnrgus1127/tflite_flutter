@@ -1,3 +1,5 @@
+import 'package:fluting/BookMarkPage.dart';
+import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'Constant.dart';
@@ -71,9 +73,22 @@ class HomeBodyHeaderWithSearchBox extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {},
+                      
+                      onSubmitted: (value) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PestDictionaryPage(
+                                hint: value,
+                                
+                              );
+                            },
+                          ),
+                        );
+                      },
                       decoration: InputDecoration(
-                        hintText: "해충 이름 검색",
+                        hintText: "작물 / 해충 이름 검색",
                         hintStyle: TextStyle(
                           color: kPrimaryColor.withOpacity(0.5),
                         ),

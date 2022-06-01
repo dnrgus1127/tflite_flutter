@@ -18,7 +18,7 @@ class BookMarkPage extends StatefulWidget {
 class _BookMarkPageState extends State<BookMarkPage> {
   //int _count = 0;
   List<BookMark> bmList = List.empty(growable: true);
-
+  
   @override
   void initState() {
     bookMarks().then((value) => {bmList = value, setState(() {}) });
@@ -201,7 +201,7 @@ Future<void> insertBookMark(BookMark bookMark) async {
 Future<Database> initDatabase() async {
   // 데이터베이스를 열어서 반환해주는
   return openDatabase(
-    join(await getDatabasesPath(), 'bookMark4.db'),
+    join(await getDatabasesPath(), 'bookMark.db'),
     onCreate: (db, version) {
       return db.execute(
         "CREATE TABLE bookmark(id INTEGER PRIMARY KEY AUTOINCREMENT, "

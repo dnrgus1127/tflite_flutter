@@ -128,7 +128,7 @@ class HomeBody extends StatelessWidget {
           ),
           RecomendsPests(),
           TitleWithMoreBtn(
-            title: "최근 조회",
+            title: "즐겨 찾기",
             materialRoutePage: BookMarkPage(),
           ),
           RecomendsPests(),

@@ -9,12 +9,16 @@ import 'PestInformationPage.dart';
 import 'Pest.dart';
 
 class PestDictionaryPage extends StatefulWidget {
+  final String? hint;
   @override
+    const PestDictionaryPage({Key? key, this.hint}) : super(key: key);
+
   _PestDictionaryPageState createState() => _PestDictionaryPageState();
 }
 
 class _PestDictionaryPageState extends State<PestDictionaryPage> {
   TextEditingController editingController = TextEditingController();
+  
   List data = List.empty(growable: true);
   final List<Pest> pestlist = List.empty(growable: true);
   final List<Pest> list = List.empty(growable: true);
@@ -22,6 +26,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
   @override
   void initState() {
     super.initState();
+    
 
     this.loadJsonData().then((value) {
       for (var i in data) {
@@ -37,7 +42,10 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
       }
       items.addAll(pestlist);
     });
-    
+    if(widget.hint != null){
+      filterSearchResults(widget.hint!);
+      print("실행됨");
+    }
     // for(int i=0;i<pestlist.length;i++){
     //   list.add(pestlist[i].name!);
     // }
