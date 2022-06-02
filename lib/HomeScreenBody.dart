@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:fluting/BookMarkPage.dart';
 import 'package:fluting/Constant.dart';
+import 'package:fluting/LoadPestlist.dart';
+import 'package:fluting/Pest.dart';
 import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'Constant.dart';
 import 'HomeBodyHeaderWithSearchbox.dart';
@@ -12,10 +16,43 @@ import 'PestImageCropPage.dart';
 import 'CameraPage.dart';
 import 'PestInformationPage.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
+  @override
+  _HomeBodyState createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
   File? imageFile;
 
-  
+  final List<Pest> pestlist = List.empty(growable: true);
+  List data = List.empty(growable: true);
+
+  @override
+  void initState() {
+    super.initState();
+
+    this.loadJsonData().then((value) {
+      for (var i in data) {
+        pestlist.add(
+          Pest(
+            name: i['name'],
+            targetCrop: i['target'],
+            imagePath: "repo/images/" + i['name'] + ".jpg",
+            solution: i['solution'],
+            shape: i['shape'],
+            damage: i['damage'],
+          ),
+        );
+      }
+    });
+  }
+
+  Future<String> loadJsonData() async {
+    var jsonText = await rootBundle.loadString('assets/pest.json');
+    setState(() => data = json.decode(jsonText));
+    return 'success';
+  }
+
   @override
   Widget build(BuildContext context) {
     // It will us total heigth and width of our screen
@@ -31,7 +68,7 @@ class HomeBody extends StatelessWidget {
               right: kDefaultPadding * 1.8,
               top: kDefaultPadding / 6,
               bottom: kDefaultPadding,
-            ), 
+            ),
             child: Row(
               children: <Widget>[
                 Container(
@@ -49,10 +86,14 @@ class HomeBody extends StatelessWidget {
                     child: Text("사진 촬영"),
                     color: kPrimaryColor,
                     onPressed: () async {
-                      final result = await Navigator.push(context, 
-                      MaterialPageRoute(builder: (context){
-                        return CameraPage();
-                      },fullscreenDialog: true), );
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) {
+                              return CameraPage();
+                            },
+                            fullscreenDialog: true),
+                      );
 
                       if (imageFile != null) {
                         Navigator.push(
@@ -74,13 +115,13 @@ class HomeBody extends StatelessWidget {
                       bottom: kDefaultPadding,
                       top: kDefaultPadding,
                       left: kDefaultPadding * 2,
-                      right: kDefaultPadding * 2 ,
+                      right: kDefaultPadding * 2,
                     ),
                   ),
                 ),
                 Spacer(),
-                 Container(
-                   decoration: BoxDecoration(
+                Container(
+                  decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       boxShadow: [
@@ -90,7 +131,7 @@ class HomeBody extends StatelessWidget {
                           color: Colors.black.withOpacity(0.20),
                         ),
                       ]),
-                   child: CupertinoButton(
+                  child: CupertinoButton(
                     child: Text("갤러리"),
                     color: kPrimaryColor,
                     onPressed: () async {
@@ -114,11 +155,11 @@ class HomeBody extends StatelessWidget {
                     padding: EdgeInsets.only(
                       bottom: kDefaultPadding,
                       top: kDefaultPadding,
-                      left: kDefaultPadding * 2 ,
+                      left: kDefaultPadding * 2,
                       right: kDefaultPadding * 2,
                     ),
+                  ),
                 ),
-                 ),
               ],
             ),
           ),
@@ -132,25 +173,41 @@ class HomeBody extends StatelessWidget {
             materialRoutePage: BookMarkPage(),
           ),
           RecomendsPests(),
-          SizedBox(height: kDefaultPadding,)
-          
-
+          SizedBox(
+            height: kDefaultPadding,
+          )
         ],
       ),
     );
   }
-   Future<Null> _pickImage() async {
+
+  Future<Null> _pickImage() async {
     final pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     imageFile = pickedImage != null ? File(pickedImage.path) : null;
   }
 }
 
-class RecomendsPests extends StatelessWidget {
+class RecomendsPests extends StatefulWidget {
   const RecomendsPests({
     Key? key,
   }) : super(key: key);
 
+  @override
+  _RecomendsPestsState createState() => _RecomendsPestsState();
+}
+
+class _RecomendsPestsState extends State<RecomendsPests> {
+  List<Pest> pestlist = List.empty(growable: true);
+  List data = List.empty(growable: true);
+  @override
+  void initState() {
+    super.initState();
+    LoadPestlist pl = new LoadPestlist();
+    pestlist = pl.getPestlist();
+
+  }
+  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -158,35 +215,36 @@ class RecomendsPests extends StatelessWidget {
       child: Row(
         children: [
           RecomendedPestCard(
-            image: "repo/images/4.png",
-            name: "먹노린재",
-            kinds: "해충",
+            image: pestlist[0].imagePath,
+            name: pestlist[0].name,
+            kinds: pestlist[0].targetCrop,
           ),
-          RecomendedPestCard(
-            image: "repo/images/2.jpg",
-            name: "꽃노랑총채벌레",
-            kinds: "해충",
+           RecomendedPestCard(
+            image: pestlist[1].imagePath,
+            name: pestlist[1].name,
+            kinds: pestlist[1].targetCrop,
           ),
-          RecomendedPestCard(
-            image: "repo/images/3.jpg",
-            name: "담배가루이",
-            kinds: "해충",
+           RecomendedPestCard(
+            image: pestlist[2].imagePath,
+            name: pestlist[2].name,
+            kinds: pestlist[2].targetCrop,
           ),
-          RecomendedPestCard(
-            image: "repo/images/5.jpg",
-            name: "검거세미밤나방",
-            kinds: "나방",
+           RecomendedPestCard(
+            image: pestlist[3].imagePath,
+            name: pestlist[3].name,
+            kinds: pestlist[3].targetCrop,
           ),
-          RecomendedPestCard(
-            image: "repo/images/6.jpg",
-            name: "도둑나방",
-            kinds: "나방",
+           RecomendedPestCard(
+            image: pestlist[4].imagePath,
+            name: pestlist[4].name,
+            kinds: pestlist[4].targetCrop,
           ),
-          RecomendedPestCard(
-            image: "repo/images/8.jpg",
-            name: "목화바둑명나방",
-            kinds: "해충",
+           RecomendedPestCard(
+            image: pestlist[5].imagePath,
+            name: pestlist[5].name,
+            kinds: pestlist[5].targetCrop,
           ),
+
         ],
       ),
     );
@@ -203,23 +261,24 @@ class RecomendedPestCard extends StatelessWidget {
 
   final String? image, kinds;
   //final Function? press;
-  @required final String? name;
+  @required
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PestInfomationPage(name: name);
-              }));
-            },
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return PestInfomationPage(name: name);
+        }));
+      },
       child: Container(
         margin: EdgeInsets.only(
-            left: kDefaultPadding,
-            top: kDefaultPadding / 3,
-            bottom: kDefaultPadding * 1.1, 
-            ),
+          left: kDefaultPadding,
+          top: kDefaultPadding / 3,
+          bottom: kDefaultPadding * 1.1,
+        ),
         width: size.width * 0.25,
         child: Column(
           children: <Widget>[
@@ -243,17 +302,18 @@ class RecomendedPestCard extends StatelessWidget {
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10)),
                   boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 10,
-                  color: Colors.black.withOpacity(0.10),
-                  
-                ),
-              ]),
+                    BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 10,
+                      color: Colors.black.withOpacity(0.10),
+                    ),
+                  ]),
               child: Row(
                 children: <Widget>[
                   RichText(
+                    overflow: TextOverflow.ellipsis,
                     text: TextSpan(
+                      
                       children: [
                         TextSpan(
                           text: "$name\n".toUpperCase(),
@@ -264,19 +324,23 @@ class RecomendedPestCard extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: "$kinds",
+                          //text: "$kinds".substring(0,2),
+                          text: "$kinds".length > 10 ? "$kinds".substring(0,10) + "..." : "$kinds",
+                          //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
+                          
                           style: TextStyle(
                             color: kPrimaryColor.withOpacity(0.5),
-                            fontSize: 12,
+                            fontSize: 10,
+                            
                           ),
                         )
                       ],
                     ),
                   )
+                  
                 ],
               ),
             ),
-            
           ],
         ),
       ),
@@ -294,8 +358,8 @@ class TitleWithMoreBtn extends StatelessWidget {
 
   final String? title;
   //final Function? press;
-  @required final Widget? materialRoutePage;
-
+  @required
+  final Widget? materialRoutePage;
 
   @override
   Widget build(BuildContext context) {
@@ -308,9 +372,10 @@ class TitleWithMoreBtn extends StatelessWidget {
           ),
           Spacer(),
           ElevatedButton(
-            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return materialRoutePage!;
-            }));
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return materialRoutePage!;
+              }));
             },
             child: Text(
               "더 보기",

@@ -41,11 +41,15 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
         );
       }
       items.addAll(pestlist);
-    });
-    if(widget.hint != null){
+      if(widget.hint != null){
+      editingController.text = widget.hint!;
       filterSearchResults(widget.hint!);
-      print("실행됨");
+      setState(() {
+        
+      });
     }
+    });
+    
     // for(int i=0;i<pestlist.length;i++){
     //   list.add(pestlist[i].name!);
     // }

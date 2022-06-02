@@ -1,4 +1,5 @@
 import 'package:fluting/Constant.dart';
+import 'package:fluting/HomeBottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'HomeScreenBody.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: HomeBody(),
-      // bottomNavigationBar: HomeBottomNavBar(),
+      //bottomNavigationBar: HomeBottomNavBar(),
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.camera_enhance),
       //   backgroundColor: kPrimaryColor,
@@ -27,8 +28,8 @@ class HomeScreen extends StatelessWidget {
       //   },
         
       // ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
+      // floatingActionButtonLocation:
+      //     FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 

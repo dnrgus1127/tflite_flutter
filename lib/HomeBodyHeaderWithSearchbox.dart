@@ -6,7 +6,7 @@ import 'Constant.dart';
 
 
 
-class HomeBodyHeaderWithSearchBox extends StatelessWidget {
+class HomeBodyHeaderWithSearchBox extends StatefulWidget {
   const HomeBodyHeaderWithSearchBox({
     Key? key,
     @required this.size,
@@ -14,10 +14,21 @@ class HomeBodyHeaderWithSearchBox extends StatelessWidget {
 
   final Size? size;
 
+  @override
+  _HomeBodyHeaderWithSearchBoxState createState() => _HomeBodyHeaderWithSearchBoxState();
+}
+
+class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBox> {
+  TextEditingController? searchController;
+
+  @override
+  void initState() {
+    searchController = new TextEditingController();
+  }
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: kDefaultPadding * 1), // SearchBox 와 TitleWithMorebtn 사이 거리
-      height: size!.height * 0.18,
+      height: widget.size!.height * 0.18,
       child: Stack(
         children: <Widget>[
           Container(
@@ -25,7 +36,7 @@ class HomeBodyHeaderWithSearchBox extends StatelessWidget {
                 left: kDefaultPadding,
                 right: kDefaultPadding,
                 bottom: 36 + kDefaultPadding),
-            height: size!.height * 0.18 - 18,
+            height: widget.size!.height * 0.18 - 18,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -73,14 +84,14 @@ class HomeBodyHeaderWithSearchBox extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      
+                      controller: searchController,
                       onSubmitted: (value) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
                               return PestDictionaryPage(
-                                hint: value,
+                                hint: searchController!.value.text,
                                 
                               );
                             },

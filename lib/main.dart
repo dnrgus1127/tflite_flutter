@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
 
    Future<Database> initDatabase() async { // 데이터베이스를 열어서 반환해주는
     return openDatabase(
-      join(await getDatabasesPath(), 'todo_database.db'),
+      join(await getDatabasesPath(), 'BookMark.db'),
       onCreate: (db,version){
         return db.execute("CREATE TABLE bookmark(id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "name TEXT)",);

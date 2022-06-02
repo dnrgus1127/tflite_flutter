@@ -5,6 +5,7 @@ import 'package:fluting/Constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Pest.dart';
 
@@ -29,6 +30,8 @@ class _PestInfomationPage extends State<PestInfomationPage> {
   String? target = "";
   String imagePath = "";
   Pest? pest;
+  bool? isBookMark = false;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +48,13 @@ class _PestInfomationPage extends State<PestInfomationPage> {
           damage = i['damage'];
         }
       }
+    });
+    _loadData(widget.name!).then((value) => {
+      isBookMark = value,
+      
+    });
+    setState(() {
+      
     });
  
   }
@@ -89,9 +99,23 @@ class _PestInfomationPage extends State<PestInfomationPage> {
           onPressed: () => Navigator.pop(context),
         ),
         IconButton(
-          icon: Icon(CupertinoIcons.bookmark_fill),
+          icon: isBookMark! ? Icon(CupertinoIcons.bookmark_fill) : Icon(CupertinoIcons.bookmark),
+          
           color: Colors.white,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => {
+            if(isBookMark!){
+              _setData(widget.name!)
+            }
+            else{
+              _addData(widget.name!),
+            },
+            isBookMark = !isBookMark!,
+            setState(() {
+      
+            })
+
+            
+          },
         ),
         SizedBox(
           width: kDefaultPadding / 4,
@@ -99,7 +123,8 @@ class _PestInfomationPage extends State<PestInfomationPage> {
       ],
     );
   }
-
+  
+  
   Widget _pictureBody(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
@@ -163,6 +188,27 @@ class _PestInfomationPage extends State<PestInfomationPage> {
     );
   }
 
+
+
+void _setData(String pest) async {
+    
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(pest, false);
+  }
+    void _addData(String pest) async {
+    
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(pest, true);
+  }
+  Future _loadData(String pest) async {
+    
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var value = pref.getBool(pest);
+    if(value == null){
+      _setData(pest);
+    }
+    return pref.getBool(pest);
+  }
 
 }
 
