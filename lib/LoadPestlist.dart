@@ -7,9 +7,9 @@ class LoadPestlist {
   List<Pest> pestlist = List.empty(growable: true);
   List data = List.empty(growable: true);
   
-  List<Pest> getPestlist() {
+  List<Pest> getPestlist()  {
     
-    this.loadJsonData().then(
+     this.loadJsonData().then(
       (value) {
         for (var i in data) {
           pestlist.add(

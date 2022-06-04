@@ -23,6 +23,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
 
   @override
   void initState() {
+    super.initState();
     searchController = new TextEditingController();
   }
   Widget build(BuildContext context) {

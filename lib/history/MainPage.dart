@@ -147,7 +147,6 @@ class _MainPage extends State<MainPage> {
         );
     setState(() {
       _outputs = output;
-      print("setState");
     });
   }
 

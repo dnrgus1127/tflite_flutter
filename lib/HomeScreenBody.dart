@@ -17,6 +17,9 @@ import 'CameraPage.dart';
 import 'PestInformationPage.dart';
 
 class HomeBody extends StatefulWidget {
+  final List<Pest>? pestlist;
+
+  HomeBody({@required this.pestlist});
   @override
   _HomeBodyState createState() => _HomeBodyState();
 }
@@ -24,27 +27,41 @@ class HomeBody extends StatefulWidget {
 class _HomeBodyState extends State<HomeBody> {
   File? imageFile;
 
-  final List<Pest> pestlist = List.empty(growable: true);
+  List<Pest> pestlist = List.empty(growable: true);
   List data = List.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
+    pestlist = widget.pestlist!;
+    // LoadPestlist pl = new LoadPestlist();
+    // pestlist = pl.getPestlist();
+    
+    // pl.getPestlist().then((value) => {
+    //   pestlist = value,
+    //   setState(() => {})
 
-    this.loadJsonData().then((value) {
-      for (var i in data) {
-        pestlist.add(
-          Pest(
-            name: i['name'],
-            targetCrop: i['target'],
-            imagePath: "repo/images/" + i['name'] + ".jpg",
-            solution: i['solution'],
-            shape: i['shape'],
-            damage: i['damage'],
-          ),
-        );
-      }
-    });
+    // });
+
+    // this.loadJsonData().then((value) {
+    //   for (var i in data) {
+    //     pestlist.add(
+    //       Pest(
+    //         name: i['name'],
+    //         targetCrop: i['target'],
+    //         imagePath: "repo/images/" + i['name'] + ".jpg",
+    //         solution: i['solution'],
+    //         shape: i['shape'],
+    //         damage: i['damage'],
+    //       ),
+    //     );
+    //   }
+    //   print("loadEnd");
+
+    // });
+    setState(() => {});
+
+
   }
 
   Future<String> loadJsonData() async {
@@ -167,12 +184,12 @@ class _HomeBodyState extends State<HomeBody> {
             title: "해충 사전",
             materialRoutePage: PestDictionaryPage(),
           ),
-          RecomendsPests(),
+          RecomendsPests(pestlist: pestlist,),
           TitleWithMoreBtn(
             title: "즐겨 찾기",
             materialRoutePage: BookMarkPage(),
           ),
-          RecomendsPests(),
+          RecomendsPests(pestlist: pestlist,),
           SizedBox(
             height: kDefaultPadding,
           )
@@ -189,60 +206,62 @@ class _HomeBodyState extends State<HomeBody> {
 }
 
 class RecomendsPests extends StatefulWidget {
+  
+  final List? pestlist;
   const RecomendsPests({
     Key? key,
-  }) : super(key: key);
+    @required this.pestlist
+    }) : super(key: key);
 
   @override
   _RecomendsPestsState createState() => _RecomendsPestsState();
 }
 
 class _RecomendsPestsState extends State<RecomendsPests> {
-  List<Pest> pestlist = List.empty(growable: true);
-  List data = List.empty(growable: true);
+
+  List? pestlist;
   @override
   void initState() {
     super.initState();
-    LoadPestlist pl = new LoadPestlist();
-    pestlist = pl.getPestlist();
-
+    pestlist = widget.pestlist!;
   }
   
   @override
   Widget build(BuildContext context) {
+    
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
           RecomendedPestCard(
-            image: pestlist[0].imagePath,
-            name: pestlist[0].name,
-            kinds: pestlist[0].targetCrop,
+            image: pestlist![0].imagePath,
+            name: pestlist![0].name,
+            kinds: pestlist![0].targetCrop,
           ),
            RecomendedPestCard(
-            image: pestlist[1].imagePath,
-            name: pestlist[1].name,
-            kinds: pestlist[1].targetCrop,
+            image: pestlist![1].imagePath,
+            name: pestlist![1].name,
+            kinds: pestlist![1].targetCrop,
           ),
            RecomendedPestCard(
-            image: pestlist[2].imagePath,
-            name: pestlist[2].name,
-            kinds: pestlist[2].targetCrop,
+            image: pestlist![2].imagePath,
+            name: pestlist![2].name,
+            kinds: pestlist![2].targetCrop,
           ),
            RecomendedPestCard(
-            image: pestlist[3].imagePath,
-            name: pestlist[3].name,
-            kinds: pestlist[3].targetCrop,
+            image: pestlist![3].imagePath,
+            name: pestlist![3].name,
+            kinds: pestlist![3].targetCrop,
           ),
            RecomendedPestCard(
-            image: pestlist[4].imagePath,
-            name: pestlist[4].name,
-            kinds: pestlist[4].targetCrop,
+            image: pestlist![4].imagePath,
+            name: pestlist![4].name,
+            kinds: pestlist![4].targetCrop,
           ),
            RecomendedPestCard(
-            image: pestlist[5].imagePath,
-            name: pestlist[5].name,
-            kinds: pestlist[5].targetCrop,
+            image: pestlist![5].imagePath,
+            name: pestlist![5].name,
+            kinds: pestlist![5].targetCrop,
           ),
 
         ],
