@@ -39,7 +39,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
                 bottom: 36 + kDefaultPadding),
             height: widget.size!.height * 0.18 - 18,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: kPrimaryColor2,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(36),
                 bottomRight: Radius.circular(36),
@@ -50,7 +50,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
                 Text(
                   "병해충 AI",
                   style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: kPrimaryColor, fontWeight: FontWeight.bold),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Icon(
@@ -75,7 +75,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 2),
+                    offset: Offset(0, 6),
                     blurRadius: 10,
                     color: Colors.black.withOpacity(0.38),
                   ),

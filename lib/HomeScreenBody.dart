@@ -1,14 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:fluting/BookMarkPage.dart';
 import 'package:fluting/Constant.dart';
-import 'package:fluting/LoadPestlist.dart';
 import 'package:fluting/Pest.dart';
 import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'Constant.dart';
 import 'HomeBodyHeaderWithSearchbox.dart';
@@ -34,41 +31,12 @@ class _HomeBodyState extends State<HomeBody> {
   void initState() {
     super.initState();
     pestlist = widget.pestlist!;
-    // LoadPestlist pl = new LoadPestlist();
-    // pestlist = pl.getPestlist();
-    
-    // pl.getPestlist().then((value) => {
-    //   pestlist = value,
-    //   setState(() => {})
-
-    // });
-
-    // this.loadJsonData().then((value) {
-    //   for (var i in data) {
-    //     pestlist.add(
-    //       Pest(
-    //         name: i['name'],
-    //         targetCrop: i['target'],
-    //         imagePath: "repo/images/" + i['name'] + ".jpg",
-    //         solution: i['solution'],
-    //         shape: i['shape'],
-    //         damage: i['damage'],
-    //       ),
-    //     );
-    //   }
-    //   print("loadEnd");
-
-    // });
+  
     setState(() => {});
 
 
   }
 
-  Future<String> loadJsonData() async {
-    var jsonText = await rootBundle.loadString('assets/pest.json');
-    setState(() => data = json.decode(jsonText));
-    return 'success';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -401,7 +369,7 @@ class TitleWithMoreBtn extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor,
+                primary: kPrimaryColor2,
                 onPrimary: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),

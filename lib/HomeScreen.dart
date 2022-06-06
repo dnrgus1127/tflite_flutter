@@ -3,9 +3,9 @@ import 'package:fluting/HomeBottomNav.dart';
 import 'package:fluting/Pest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'HomeScreenBody.dart';
+import 'HomeScreenBody2.dart';
 import 'PestDictionaryPage.dart';
-import 'HomeScreenBottomNavBar.dart';
+import 'history/HomeScreenBottomNavBar.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<Pest>? pestlist;
@@ -43,6 +43,7 @@ class HomeScreen extends StatelessWidget {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
+      backgroundColor: kPrimaryColor2,
       toolbarHeight: 65,
       leading: IconButton(
         icon: Icon(CupertinoIcons.bars),

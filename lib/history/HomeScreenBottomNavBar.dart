@@ -2,9 +2,9 @@ import 'package:fluting/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'BookMarkPage.dart';
-import 'Constant.dart';
-import 'PestDictionaryPage.dart';
+import '../BookMarkPage.dart';
+import '../Constant.dart';
+import '../PestDictionaryPage.dart';
 
 class HomeBottomNavBar extends StatefulWidget {
 
@@ -18,7 +18,7 @@ class HomeBottomNavBar extends StatefulWidget {
 
 class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
   int _currentIndex = 0;
-  final List<Widget> _children = [HomeScreen(), PestDictionaryPage() ];
+  final List<Widget> _children = [HomeScreen(pestlist: [],), PestDictionaryPage() ];
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
