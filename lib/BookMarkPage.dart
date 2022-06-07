@@ -160,7 +160,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
                         child: Column(
                           children: [
                             Container(
-                              height: 2,
+                              height: 1,
                               color: kPrimaryColor.withOpacity(0.48),
                             ),
                             //SizedBox(height :40),
@@ -193,6 +193,10 @@ class _BookMarkPageState extends State<BookMarkPage> {
                                   ),
                                 ),
                               ],
+                            ),
+                            Container(
+                              height: 1,
+                              color: kPrimaryColor.withOpacity(0.48),
                             ),
                           ],
                         ),

@@ -312,7 +312,7 @@ class RecomendedPestCard extends StatelessWidget {
                         ),
                         TextSpan(
                           //text: "$kinds".substring(0,2),
-                          text: "$kinds".length > 10 ? "$kinds".substring(0,10) + "..." : "$kinds",
+                          text: "$kinds".length > 7 ? "$kinds".substring(0,5) + ".." : "$kinds",
                           //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
                           
                           style: TextStyle(

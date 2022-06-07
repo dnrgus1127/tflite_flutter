@@ -114,7 +114,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 10),
+                                    padding: EdgeInsets.only(top: 17),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -158,7 +158,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 10),
+                                    padding: EdgeInsets.only(top: 17),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -192,7 +192,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 10),
+                                    padding: EdgeInsets.only(top: 17),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -227,7 +227,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 10),
+                                    padding: EdgeInsets.only(top: 17),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -423,8 +423,8 @@ class RecomendedPestCard extends StatelessWidget {
                         ),
                         TextSpan(
                           //text: "$kinds".substring(0,2),
-                          text: "$kinds".length > 10
-                              ? "$kinds".substring(0, 10) + "..."
+                          text: "$kinds".length > 8
+                              ? "$kinds".substring(0, 8) + "..."
                               : "$kinds",
                           //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
 
