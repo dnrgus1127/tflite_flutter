@@ -97,7 +97,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
                               );
                             },
                           ),
-                        );
+                        ).then((value) => searchController!.text = "");
                       },
                       decoration: InputDecoration(
                         hintText: "작물 / 해충 이름 검색",

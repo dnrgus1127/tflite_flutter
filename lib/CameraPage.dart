@@ -275,7 +275,7 @@ class _CameraPageState extends State<CameraPage> {
 }
 
   Widget _buildCameraTypeSelector(BuildContext context) {
-    final List<String> cameratTypes = ["Photo", "Video"];
+    final List<String> cameratTypes = ["Photo"];
 
     TextStyle style = Theme.of(context).textTheme.bodyText1!.copyWith(
         fontSize: 13, color: Colors.white, fontWeight: FontWeight.bold);
@@ -342,7 +342,7 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Widget _buildCameraSelector(BuildContext context) {
-    final List<String> postTypes = ["Quick", "Camera", "Templates"];
+    final List<String> postTypes = ["Camera"];
 
     TextStyle style = Theme.of(context).textTheme.bodyText1!.copyWith(
         fontSize: 13, color: Colors.white, fontWeight: FontWeight.bold);

@@ -93,11 +93,11 @@ class _PestInfomationPage extends State<PestInfomationPage> {
         onPressed: () => Navigator.pop(context),
       ),
       actions: [
-        IconButton(
-          icon: Icon(CupertinoIcons.search),
-          color: Colors.white,
-          onPressed: () => Navigator.pop(context),
-        ),
+        // IconButton(
+        //   icon: Icon(CupertinoIcons.search),
+        //   color: Colors.white,
+        //   onPressed: () => Navigator.pop(context),
+        // ),
         IconButton(
           icon: isBookMark! ? Icon(CupertinoIcons.bookmark_fill) : Icon(CupertinoIcons.bookmark),
           
