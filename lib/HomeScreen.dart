@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {return false;},
       child: Scaffold(
+        backgroundColor: kPrimaryColor,
         appBar: buildAppBar(),
         body: HomeBody(pestlist: pestlist,),
         //bottomNavigationBar: HomeBottomNavBar(),

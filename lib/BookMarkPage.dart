@@ -150,6 +150,7 @@ class _BookMarkPageState extends State<BookMarkPage> {
                             builder: (context) {
                               return PestInfomationPage(
                                 name: items[index].name,
+                                pestlist: pestlist,
                               );
                             },
                           ),

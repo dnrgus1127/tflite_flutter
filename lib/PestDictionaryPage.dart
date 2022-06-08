@@ -10,52 +10,63 @@ import 'Pest.dart';
 
 class PestDictionaryPage extends StatefulWidget {
   final String? hint;
+  final List<Pest>? pestlist;
+
   @override
-    const PestDictionaryPage({Key? key, this.hint}) : super(key: key);
+  const PestDictionaryPage({Key? key, this.hint, @required this.pestlist}) : super(key: key);
 
   _PestDictionaryPageState createState() => _PestDictionaryPageState();
 }
 
 class _PestDictionaryPageState extends State<PestDictionaryPage> {
   TextEditingController editingController = TextEditingController();
-  
+  List<Pest>? pestlist;
+
   List data = List.empty(growable: true);
-  final List<Pest> pestlist = List.empty(growable: true);
+  // final List<Pest> pestlist = List.empty(growable: true);
   final List<Pest> list = List.empty(growable: true);
   var items = List.empty(growable: true);
   @override
   void initState() {
     super.initState();
-    
+    pestlist = widget.pestlist!;
 
-    this.loadJsonData().then((value) {
-      for (var i in data) {
-        pestlist.add(Pest(
-            name: i['name'],
-            targetCrop: i['target'],
-            imagePath: "repo/images/" + i['name'] + ".jpg",
-            solution: i['solution'],
-            shape: i['shape'],
-            damage: i['damage'],
-          ),
-        );
-      }
-      items.addAll(pestlist);
-      if(widget.hint != null){
+    items.addAll(pestlist!);
+    if(widget.hint != null){
       editingController.text = widget.hint!;
       filterSearchResults(widget.hint!);
       setState(() {
         
       });
     }
-    });
-    
+    // this.loadJsonData().then((value) {
+    //   for (var i in data) {
+    //     pestlist.add(Pest(
+    //         name: i['name'],
+    //         targetCrop: i['target'],
+    //         imagePath: "repo/images/" + i['name'] + ".jpg",
+    //         solution: i['solution'],
+    //         shape: i['shape'],
+    //         damage: i['damage'],
+    //       ),
+    //     );
+    //   }
+    //   items.addAll(pestlist);
+    //   if(widget.hint != null){
+    //   editingController.text = widget.hint!;
+    //   filterSearchResults(widget.hint!);
+    //   setState(() {
+
+    //   });
+    // }
+    //});
+
     // for(int i=0;i<pestlist.length;i++){
     //   list.add(pestlist[i].name!);
     // }
     //pestlist.sort((a,b) => true ? a.name.compareTo(b.name!) : b.name.compareTo(a.name!));
     //pestlist.sort((a,b) => a.name!.compareTo(b.name!));
-    
+
     //print(list);
   }
   // List searchPest(List data, String name){
@@ -75,7 +86,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
 
   void filterSearchResults (String query){
     List<Pest> dummySearchList = List.empty(growable: true);
-    dummySearchList.addAll(pestlist);
+    dummySearchList.addAll(pestlist!);
     if (query.isNotEmpty) {
       List<Pest> dummyListData = List.empty(growable: true);
       //dummySearchList.forEach((item) {
@@ -93,7 +104,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
     } else {
       setState(() {
         items.clear();
-        items.addAll(pestlist);
+        items.addAll(pestlist!);
       });
     }
   }
@@ -178,6 +189,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return PestInfomationPage(
+                                  pestlist: pestlist,
                                   name: items[index].name,
                                 );
                               },

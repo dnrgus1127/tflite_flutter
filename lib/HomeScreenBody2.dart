@@ -43,306 +43,310 @@ class _HomeBodyState extends State<HomeBody> {
     Size size = MediaQuery.of(context).size;
     
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          HomeBodyHeaderWithSearchBox(size: size),
-          Container(
-            child: TitleWithCustomUnderline(
-              text: "메뉴",
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            HomeBodyHeaderWithSearchBox(size: size,pestlist: pestlist,),
+            Container(
+              color: Colors.white,
+              child: TitleWithCustomUnderline(
+                text: "메뉴",
+              ),
+              padding: EdgeInsets.only(
+                  left: kDefaultPadding, bottom: kDefaultPadding * 0.8),
             ),
-            padding: EdgeInsets.only(
-                left: kDefaultPadding, bottom: kDefaultPadding * 0.8),
-          ),
-          // TitleWithMoreBtn(
-          //   title: "메뉴",
-          //   materialRoutePage: PestDictionaryPage(),
-          // ),
-          Container(
-            color: Colors.white,
-            margin: EdgeInsets.only(bottom: kDefaultPadding),
-            height: size.height / 8,
-            padding:
-                EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
-            child: Center(
+            // TitleWithMoreBtn(
+            //   title: "메뉴",
+            //   materialRoutePage: PestDictionaryPage(),
+            // ),
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(bottom: kDefaultPadding),
+              height: size.height / 8,
+              padding:
+                  EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
+              child: Center(
+                child: Container(
+                  //color: kPrimaryColor,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor2,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 6),
+                        blurRadius: 10,
+                        color: Colors.black.withOpacity(0.38),
+                      ),
+                    ],
+                  ),
+                  child: Container(
+                    //child: Center(child: Text("사진촬영",style: TextStyle(color: kPrimaryColor,fontSize: 30,fontWeight: FontWeight.bold),)),
+
+                    padding:
+                        EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      final result = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) {
+                                              return CameraPage();
+                                            },
+                                            fullscreenDialog: true),
+                                      );
+
+                                      if (imageFile != null) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return PestImageCropPage(
+                                                title: "이미지 자르기",
+                                                imageFile: result,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      //color: Colors.green,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                              child: Icon(
+                                            CupertinoIcons.camera_fill,
+                                            color: kPrimaryColor,
+                                          )),
+                                          Text(
+                                            "카메라",
+                                            style: TextStyle(fontSize: 12),
+                                          )
+                                        ],
+                                      ),
+                                      //color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await _pickImage();
+                                      if (imageFile != null) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return PestImageCropPage(
+                                                title: "이미지 자르기",
+                                                imageFile: imageFile,
+                                              );
+                                            },
+                                          ),
+                                        ).then((value) => pestRandom = Random().nextInt(21));
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      //color: Colors.green,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                              child: Icon(
+                                            CupertinoIcons.app_badge_fill,
+                                            color: kPrimaryColor,
+                                          )),
+                                          Text(
+                                            "갤러리",
+                                            style: TextStyle(fontSize: 12),
+                                          )
+                                        ],
+                                      ),
+                                      //color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return PestDictionaryPage(pestlist: pestlist,);
+                                      }));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      //color: Colors.green,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                              child: Icon(
+                                            CupertinoIcons.book_fill,
+                                            color: kPrimaryColor,
+                                          )),
+                                          Text(
+                                            "해충 사전",
+                                            style: TextStyle(fontSize: 12),
+                                          )
+                                        ],
+                                      ),
+
+                                      //color: Colors.yellow,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return BookMarkPage();
+                                      })).then((value) => pestRandom = Random().nextInt(21));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 10),
+                                      margin: EdgeInsets.only(left: 5, right: 5),
+                                      //color: Colors.green,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Center(
+                                              child: Icon(
+                                            CupertinoIcons.bookmark_fill,
+                                            color: kPrimaryColor,
+                                          )),
+                                          Text(
+                                            "즐겨 찾기",
+                                            style: TextStyle(fontSize: 12),
+                                          )
+                                        ],
+                                      ),
+                                      //color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            TitleWithMoreBtn(
+              title: "해충 사전",
+              materialRoutePage: PestDictionaryPage(pestlist: pestlist,),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: kDefaultPadding / 2,),
+              child: RecomendsPests(
+                pestlist: pestlist,
+              ),
+            ),
+            Container(
+              child: TitleWithCustomUnderline(
+                text: "오늘의 해충",
+              ),
+              padding: EdgeInsets.only(
+                  left: kDefaultPadding),
+            ),
+            Container(
+              height: size.height / 1.6 - 30,
+              padding: EdgeInsets.all(kDefaultPadding),
               child: Container(
-                //color: kPrimaryColor,
+                height: size.height / 2.5,
+                width: size.width - kDefaultPadding *2,
                 decoration: BoxDecoration(
-                  color: kPrimaryColor2,
+                  color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 6),
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.38),
-                    ),
-                  ],
+                      BoxShadow(
+                        offset: Offset(0, 6),
+                        blurRadius: 10,
+                        color: Colors.black.withOpacity(0.38),
+                      ),
+                    ],
                 ),
-                child: Container(
-                  //child: Center(child: Text("사진촬영",style: TextStyle(color: kPrimaryColor,fontSize: 30,fontWeight: FontWeight.bold),)),
-
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final result = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) {
-                                            return CameraPage();
-                                          },
-                                          fullscreenDialog: true),
-                                    );
-
-                                    if (imageFile != null) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return PestImageCropPage(
-                                              title: "이미지 자르기",
-                                              imageFile: result,
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    //color: Colors.green,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                            child: Icon(
-                                          CupertinoIcons.camera_fill,
-                                          color: kPrimaryColor,
-                                        )),
-                                        Text(
-                                          "카메라",
-                                          style: TextStyle(fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                    //color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    await _pickImage();
-                                    if (imageFile != null) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return PestImageCropPage(
-                                              title: "이미지 자르기",
-                                              imageFile: imageFile,
-                                            );
-                                          },
-                                        ),
-                                      ).then((value) => pestRandom = Random().nextInt(21));
-                                    }
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    //color: Colors.green,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                            child: Icon(
-                                          CupertinoIcons.app_badge_fill,
-                                          color: kPrimaryColor,
-                                        )),
-                                        Text(
-                                          "갤러리",
-                                          style: TextStyle(fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                    //color: Colors.green,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return PestDictionaryPage();
-                                    }));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    //color: Colors.green,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                            child: Icon(
-                                          CupertinoIcons.book_fill,
-                                          color: kPrimaryColor,
-                                        )),
-                                        Text(
-                                          "해충 사전",
-                                          style: TextStyle(fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-
-                                    //color: Colors.yellow,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return BookMarkPage();
-                                    })).then((value) => pestRandom = Random().nextInt(21));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    margin: EdgeInsets.only(left: 5, right: 5),
-                                    //color: Colors.green,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Center(
-                                            child: Icon(
-                                          CupertinoIcons.bookmark_fill,
-                                          color: kPrimaryColor,
-                                        )),
-                                        Text(
-                                          "즐겨 찾기",
-                                          style: TextStyle(fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                    //color: Colors.green,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      child: Image.asset(
+                        pestlist[pestRandom].imagePath!,
+                        fit: BoxFit.fill,
+                        width: size.width - kDefaultPadding * 2,
+                        height: size.height / 3,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          TitleWithMoreBtn(
-            title: "해충 사전",
-            materialRoutePage: PestDictionaryPage(),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: kDefaultPadding / 2,),
-            child: RecomendsPests(
-              pestlist: pestlist,
-            ),
-          ),
-          Container(
-            child: TitleWithCustomUnderline(
-              text: "추천",
-            ),
-            padding: EdgeInsets.only(
-                left: kDefaultPadding),
-          ),
-          Container(
-            height: size.height / 1.6 - 30,
-            padding: EdgeInsets.all(kDefaultPadding),
-            child: Container(
-              height: size.height / 2.5,
-              width: size.width - kDefaultPadding *2,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 6),
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.38),
-                    ),
-                  ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    child: Image.asset(
-                      pestlist[pestRandom].imagePath!,
-                      fit: BoxFit.fill,
-                      width: size.width - kDefaultPadding * 2,
-                      height: size.height / 3,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: kDefaultPadding,left: kDefaultPadding),
-                    height: size.height / 6,
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("명칭",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
-                        Text(
-                          pestlist[pestRandom].name!,
-                          style: TextStyle(
-                              color: Colors.black),
-                        ),
-                        SizedBox(
-                          height: kDefaultPadding / 2,
-                        ),
-                        Text("대상 작물",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
-                        Text(
-                            pestlist[pestRandom].targetCrop!,
+                    Container(
+                      padding: EdgeInsets.only(top: kDefaultPadding,left: kDefaultPadding),
+                      height: size.height / 6,
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("명칭",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                          Text(
+                            pestlist[pestRandom].name!,
                             style: TextStyle(
                                 color: Colors.black),
-                          )
-                      ],
-                    ),
-                  )
-                ],
+                          ),
+                          SizedBox(
+                            height: kDefaultPadding / 2,
+                          ),
+                          Text("대상 작물",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                          Text(
+                              pestlist[pestRandom].targetCrop!,
+                              style: TextStyle(
+                                  color: Colors.black),
+                            )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -355,7 +359,7 @@ class _HomeBodyState extends State<HomeBody> {
 }
 
 class RecomendsPests extends StatefulWidget {
-  final List? pestlist;
+  final List<Pest>? pestlist;
   const RecomendsPests({Key? key, @required this.pestlist}) : super(key: key);
 
   @override
@@ -363,7 +367,7 @@ class RecomendsPests extends StatefulWidget {
 }
 
 class _RecomendsPestsState extends State<RecomendsPests> {
-  List? pestlist;
+  List<Pest>? pestlist;
   @override
   void initState() {
     super.initState();
@@ -377,31 +381,37 @@ class _RecomendsPestsState extends State<RecomendsPests> {
       child: Row(
         children: [
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![0].imagePath,
             name: pestlist![0].name,
             kinds: pestlist![0].targetCrop,
           ),
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![1].imagePath,
             name: pestlist![1].name,
             kinds: pestlist![1].targetCrop,
           ),
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![2].imagePath,
             name: pestlist![2].name,
             kinds: pestlist![2].targetCrop,
           ),
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![3].imagePath,
             name: pestlist![3].name,
             kinds: pestlist![3].targetCrop,
           ),
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![4].imagePath,
             name: pestlist![4].name,
             kinds: pestlist![4].targetCrop,
           ),
           RecomendedPestCard(
+            pestlist: pestlist,
             image: pestlist![5].imagePath,
             name: pestlist![5].name,
             kinds: pestlist![5].targetCrop,
@@ -412,13 +422,16 @@ class _RecomendsPestsState extends State<RecomendsPests> {
   }
 }
 
-class RecomendedPestCard extends StatelessWidget {
+class RecomendedPestCard extends StatefulWidget {
   const RecomendedPestCard({
     Key? key,
     this.image,
     this.name,
     this.kinds,
+    @required this.pestlist
+    
   }) : super(key: key);
+  final List<Pest>? pestlist;
 
   final String? image, kinds;
   //final Function? press;
@@ -426,12 +439,26 @@ class RecomendedPestCard extends StatelessWidget {
   final String? name;
 
   @override
+  _RecomendedPestCardState createState() => _RecomendedPestCardState();
+}
+
+class _RecomendedPestCardState extends State<RecomendedPestCard> {
+  List<Pest>? pestlist;
+  @override
+  void initState() {
+    super.initState();
+    pestlist = widget.pestlist;
+  }
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PestInfomationPage(name: name);
+          return PestInfomationPage(
+            name: widget.name,
+            pestlist: widget.pestlist,
+          );
         }));
       },
       child: Container(
@@ -447,7 +474,7 @@ class RecomendedPestCard extends StatelessWidget {
           children: <Widget>[
             ClipRRect(
               child: Image.asset(
-                image!,
+                widget.image!,
                 fit: BoxFit.fill,
                 width: 150,
                 height: 80,
@@ -478,7 +505,7 @@ class RecomendedPestCard extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "$name\n".toUpperCase(),
+                          text: "${widget.name}\n".toUpperCase(),
                           // style: Theme.of(context).textTheme.button,
                           style: TextStyle(
                             color: Colors.black,
@@ -487,9 +514,9 @@ class RecomendedPestCard extends StatelessWidget {
                         ),
                         TextSpan(
                           //text: "$kinds".substring(0,2),
-                          text: "$kinds".length > 10
-                              ? "$kinds".substring(0, 10) + "..."
-                              : "$kinds",
+                          text: "${widget.kinds}".length > 10
+                              ? "${widget.kinds}".substring(0, 10) + "..."
+                              : "${widget.kinds}",
                           //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
 
                           style: TextStyle(
@@ -525,31 +552,35 @@ class TitleWithMoreBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      child: Row(
-        children: [
-          TitleWithCustomUnderline(
-            text: title,
-          ),
-          Spacer(),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return materialRoutePage!;
-              }));
-            },
-            child: Text(
-              "더 보기",
-              style: TextStyle(color: Colors.white),
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        child: Row(
+          children: [
+            TitleWithCustomUnderline(
+              text: title,
             ),
-            style: ElevatedButton.styleFrom(
-                primary: kPrimaryColor2,
-                onPrimary: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20))),
-          ),
-        ],
+            Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return materialRoutePage!;
+                }));
+              },
+              child: Text(
+                "더 보기",
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                  primary: kPrimaryColor2,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -566,6 +597,7 @@ class TitleWithCustomUnderline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       height: 27,
       child: Stack(
         children: <Widget>[

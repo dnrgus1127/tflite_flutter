@@ -1,4 +1,4 @@
-import 'package:fluting/BookMarkPage.dart';
+import 'package:fluting/Pest.dart';
 import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,10 +9,12 @@ import 'Constant.dart';
 class HomeBodyHeaderWithSearchBox extends StatefulWidget {
   const HomeBodyHeaderWithSearchBox({
     Key? key,
+    @required this.pestlist,
     @required this.size,
   }) : super(key: key);
 
   final Size? size;
+  final List<Pest>? pestlist;
 
   @override
   _HomeBodyHeaderWithSearchBoxState createState() => _HomeBodyHeaderWithSearchBoxState();
@@ -20,10 +22,13 @@ class HomeBodyHeaderWithSearchBox extends StatefulWidget {
 
 class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBox> {
   TextEditingController? searchController;
+  List<Pest>? pestlist;
 
   @override
   void initState() {
     super.initState();
+    pestlist = widget.pestlist!;
+
     searchController = new TextEditingController();
   }
   Widget build(BuildContext context) {
@@ -93,7 +98,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
                             builder: (context) {
                               return PestDictionaryPage(
                                 hint: searchController!.value.text,
-                                
+                                pestlist: pestlist,
                               );
                             },
                           ),

@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:fluting/AiDoctor.dart';
+import 'package:fluting/Pest.dart';
 import 'package:fluting/PestInformationPage.dart';
 import 'package:fluting/Constant.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 class PestImageCropPage extends StatefulWidget {
   final String title;
   final File? imageFile;
-  PestImageCropPage({required this.title, this.imageFile});
+  final List<Pest>? pestlist;
+  PestImageCropPage({required this.title, this.imageFile, this.pestlist});
 
   @override
   _PestImageCropPage createState() => _PestImageCropPage();
@@ -27,6 +29,7 @@ class _PestImageCropPage extends State<PestImageCropPage> {
   AppState? state;
   File? _imageTemp;
   String? label = "error";
+  List<Pest>? pestlist;
   //File? imageFile = widget.imagefile;
 
   @override
@@ -35,7 +38,7 @@ class _PestImageCropPage extends State<PestImageCropPage> {
     state = AppState.picked;
     _cropImage();
     _imageTemp = widget.imageFile;
-    
+    pestlist = widget.pestlist;
   }
 
 
@@ -77,30 +80,33 @@ class _PestImageCropPage extends State<PestImageCropPage> {
             Spacer(),
             Row(
               children: [
-                CupertinoButton(
-                  child: Text("진단"),
-                  color: kPrimaryColor,
-                  onPressed: () async {
-                    aiDoctor().then((_) {
-                      setState(() {});
-                    });
-                    Future.delayed(const Duration(milliseconds: 1000), () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) {
-                              return PestInfomationPage(
-                                name: label,
-                              );
-                            },
-                            fullscreenDialog: true),
-                      );
-                    });
-
-                    // Navigator.pop(context);
-                  },
+                Padding(padding: EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding/2),
+                  child: CupertinoButton(
+                    child: Text("진단"),
+                    color: kPrimaryColor,
+                    onPressed: () async {
+                      aiDoctor().then((_) {
+                        setState(() {});
+                      });
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) {
+                                return PestInfomationPage(
+                                  pestlist: pestlist,
+                                  name: label,
+                                );
+                              },
+                              fullscreenDialog: true),
+                        );
+                      });
+                
+                      // Navigator.pop(context);
+                    },
+                  ),
                 ),
-                Spacer(),
+                //Spacer(),
                 CupertinoButton(
                   color: kPrimaryColor,
                   child: Text("재조정"),

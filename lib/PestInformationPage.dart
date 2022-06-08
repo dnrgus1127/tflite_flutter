@@ -12,7 +12,9 @@ import 'Pest.dart';
 class PestInfomationPage extends StatefulWidget {
   //final File? imagePath;
   final String? name;
-  const PestInfomationPage({Key? key, @required this.name}) : super(key: key);
+  final List<Pest>? pestlist;
+
+  const PestInfomationPage({Key? key, @required this.name, @required this.pestlist,}) : super(key: key);
 
   @override
   _PestInfomationPage createState() => _PestInfomationPage();
@@ -20,8 +22,9 @@ class PestInfomationPage extends StatefulWidget {
 
 class _PestInfomationPage extends State<PestInfomationPage> {
   File? imageTemp;
+  List<Pest>? pestlist;
 
-  List data = List.empty(growable: true);
+  //List data = List.empty(growable: true);
 
   String? name = "Defalut Value";
   String? damage = "";
@@ -36,19 +39,30 @@ class _PestInfomationPage extends State<PestInfomationPage> {
   void initState() {
     super.initState();
     name = widget.name;
+    pestlist = widget.pestlist!;
 
-    this.loadJsonData().then((value) {
-      for(var i in data) {
-        if (i['name'] == name) {
-          name = i['name'];
-          target = i['target'];
-          imagePath = "repo/images/" + i['name'] + ".jpg";
-          solution = i['solution'];
-          shape = i['shape'];
-          damage = i['damage'];
+    // this.loadJsonData().then((value) {
+    //   for(var i in data) {
+    //     if (i['name'] == name) {
+    //       name = i['name'];
+    //       target = i['target'];
+    //       imagePath = "repo/images/" + i['name'] + ".jpg";
+    //       solution = i['solution'];
+    //       shape = i['shape'];
+    //       damage = i['damage'];
+    //     }
+    //   }
+    // });
+    for(var i in pestlist!) {
+        if (i.name == name) {
+          name = i.name;
+          target = i.targetCrop;
+          imagePath = "repo/images/" + i.name! + ".jpg";
+          solution = i.solution;
+          shape = i.shape;
+          damage = i.damage;
         }
       }
-    });
     _loadData(widget.name!).then((value) => {
       isBookMark = value,
       
@@ -59,11 +73,11 @@ class _PestInfomationPage extends State<PestInfomationPage> {
  
   }
 
-   Future<String> loadJsonData() async {
-    var jsonText = await rootBundle.loadString('assets/pest.json');
-    setState(() => data = json.decode(jsonText));
-    return 'success';
-  }
+  //  Future<String> loadJsonData() async {
+  //   var jsonText = await rootBundle.loadString('assets/pest.json');
+  //   setState(() => data = json.decode(jsonText));
+  //   return 'success';
+  // }
 
   @override
   void dispose() {
@@ -132,7 +146,7 @@ class _PestInfomationPage extends State<PestInfomationPage> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: size.height,
+            height: size.height * 1.3,
             child: Stack(
               children: <Widget>[
                 Container(
@@ -142,7 +156,7 @@ class _PestInfomationPage extends State<PestInfomationPage> {
                       top: size.height * 0.05,
                       left: kDefaultPadding,
                       right: kDefaultPadding),
-                  height: 600,
+                  height: 1000,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(

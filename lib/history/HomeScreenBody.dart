@@ -7,11 +7,11 @@ import 'package:fluting/PestDictionaryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'Constant.dart';
-import 'HomeBodyHeaderWithSearchbox.dart';
-import 'PestImageCropPage.dart';
-import 'CameraPage.dart';
-import 'PestInformationPage.dart';
+import '../Constant.dart';
+import '../HomeBodyHeaderWithSearchbox.dart';
+import '../PestImageCropPage.dart';
+import '../CameraPage.dart';
+import '../PestInformationPage.dart';
 
 class HomeBody extends StatefulWidget {
   final List<Pest>? pestlist;
@@ -257,7 +257,11 @@ class RecomendedPestCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PestInfomationPage(name: name);
+          return PestInfomationPage(
+            //pestlist: pest,
+            name: name,
+            //pestlist: pestlist,
+          );
         }));
       },
       child: Container(
