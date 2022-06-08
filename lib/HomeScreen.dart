@@ -1,11 +1,9 @@
 import 'package:fluting/Constant.dart';
-import 'package:fluting/HomeBottomNav.dart';
 import 'package:fluting/Pest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'HomeScreenBody2.dart';
-import 'PestDictionaryPage.dart';
-import 'history/HomeScreenBottomNavBar.dart';
+
 
 class HomeScreen extends StatelessWidget {
   final List<Pest>? pestlist;

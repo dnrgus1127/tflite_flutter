@@ -48,7 +48,7 @@ class _HomeBodyHeaderWithSearchBoxState extends State<HomeBodyHeaderWithSearchBo
             child: Row(
               children: <Widget>[
                 Text(
-                  "병해충 AI",
+                  "해충 진단 AI",
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),

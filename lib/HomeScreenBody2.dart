@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:fluting/BookMarkPage.dart';
 import 'package:fluting/CameraPage.dart';
@@ -27,12 +28,12 @@ class _HomeBodyState extends State<HomeBody> {
 
   List<Pest> pestlist = List.empty(growable: true);
   List data = List.empty(growable: true);
-
+  int pestRandom = 0;
   @override
   void initState() {
     super.initState();
     pestlist = widget.pestlist!;
-
+    pestRandom = Random().nextInt(21);
     setState(() => {});
   }
 
@@ -40,6 +41,7 @@ class _HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     // It will us total heigth and width of our screen
     Size size = MediaQuery.of(context).size;
+    
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +116,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 17),
+                                    padding: EdgeInsets.only(top: 10),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -154,11 +156,11 @@ class _HomeBodyState extends State<HomeBody> {
                                             );
                                           },
                                         ),
-                                      );
+                                      ).then((value) => pestRandom = Random().nextInt(21));
                                     }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 17),
+                                    padding: EdgeInsets.only(top: 10),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -192,7 +194,7 @@ class _HomeBodyState extends State<HomeBody> {
                                     }));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 17),
+                                    padding: EdgeInsets.only(top: 10),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -224,10 +226,10 @@ class _HomeBodyState extends State<HomeBody> {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
                                       return BookMarkPage();
-                                    }));
+                                    })).then((value) => pestRandom = Random().nextInt(21));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.only(top: 17),
+                                    padding: EdgeInsets.only(top: 10),
                                     margin: EdgeInsets.only(left: 5, right: 5),
                                     //color: Colors.green,
                                     decoration: BoxDecoration(
@@ -262,23 +264,83 @@ class _HomeBodyState extends State<HomeBody> {
               ),
             ),
           ),
-          
           TitleWithMoreBtn(
             title: "해충 사전",
             materialRoutePage: PestDictionaryPage(),
           ),
-          RecomendsPests(
-            pestlist: pestlist,
+          Container(
+            padding: EdgeInsets.only(left: kDefaultPadding / 2,),
+            child: RecomendsPests(
+              pestlist: pestlist,
+            ),
           ),
-          TitleWithMoreBtn(
-            title: "즐겨 찾기",
-            materialRoutePage: BookMarkPage(),
+          Container(
+            child: TitleWithCustomUnderline(
+              text: "추천",
+            ),
+            padding: EdgeInsets.only(
+                left: kDefaultPadding),
           ),
-          RecomendsPests(
-            pestlist: pestlist,
-          ),
-          SizedBox(
-            height: kDefaultPadding,
+          Container(
+            height: size.height / 1.6 - 30,
+            padding: EdgeInsets.all(kDefaultPadding),
+            child: Container(
+              height: size.height / 2.5,
+              width: size.width - kDefaultPadding *2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 6),
+                      blurRadius: 10,
+                      color: Colors.black.withOpacity(0.38),
+                    ),
+                  ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    child: Image.asset(
+                      pestlist[pestRandom].imagePath!,
+                      fit: BoxFit.fill,
+                      width: size.width - kDefaultPadding * 2,
+                      height: size.height / 3,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: kDefaultPadding,left: kDefaultPadding),
+                    height: size.height / 6,
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("명칭",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                        Text(
+                          pestlist[pestRandom].name!,
+                          style: TextStyle(
+                              color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: kDefaultPadding / 2,
+                        ),
+                        Text("대상 작물",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                        Text(
+                            pestlist[pestRandom].targetCrop!,
+                            style: TextStyle(
+                                color: Colors.black),
+                          )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),
@@ -373,8 +435,10 @@ class RecomendedPestCard extends StatelessWidget {
         }));
       },
       child: Container(
+        
         margin: EdgeInsets.only(
-          left: kDefaultPadding,
+          left: kDefaultPadding / 2,
+          right: kDefaultPadding / 2,
           top: kDefaultPadding / 3,
           bottom: kDefaultPadding * 1.1,
         ),
@@ -418,13 +482,13 @@ class RecomendedPestCard extends StatelessWidget {
                           // style: Theme.of(context).textTheme.button,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 12,
+                            fontSize: 11,
                           ),
                         ),
                         TextSpan(
                           //text: "$kinds".substring(0,2),
-                          text: "$kinds".length > 8
-                              ? "$kinds".substring(0, 8) + "..."
+                          text: "$kinds".length > 10
+                              ? "$kinds".substring(0, 10) + "..."
                               : "$kinds",
                           //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
 
