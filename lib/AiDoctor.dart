@@ -12,7 +12,7 @@ class AiDoctor {
   static Future Doctor(File? imagePath) async {
     loadModel();
     
-    await classifyImage(imagePath!).then((value) => {_outputs = value,Tflite.close(), print(_outputs)});
+    await classifyImage(imagePath!).then((value) => {_outputs = value,print(_outputs),Tflite.close(), });
     
     return _outputs![0]['label'];
   }

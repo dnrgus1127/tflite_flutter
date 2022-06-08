@@ -33,7 +33,7 @@ class _HomeBodyState extends State<HomeBody> {
   void initState() {
     super.initState();
     pestlist = widget.pestlist!;
-    pestRandom = Random().nextInt(21);
+    pestRandom = Random().nextInt(20);
     setState(() => {});
   }
 
@@ -99,7 +99,7 @@ class _HomeBodyState extends State<HomeBody> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) {
-                                              return CameraPage();
+                                              return CameraPage(pestlist);
                                             },
                                             fullscreenDialog: true),
                                       );
@@ -110,6 +110,7 @@ class _HomeBodyState extends State<HomeBody> {
                                           MaterialPageRoute(
                                             builder: (context) {
                                               return PestImageCropPage(
+                                                pestlist: pestlist,
                                                 title: "이미지 자르기",
                                                 imageFile: result,
                                               );
@@ -154,12 +155,13 @@ class _HomeBodyState extends State<HomeBody> {
                                           MaterialPageRoute(
                                             builder: (context) {
                                               return PestImageCropPage(
+                                                pestlist: pestlist,
                                                 title: "이미지 자르기",
                                                 imageFile: imageFile,
                                               );
                                             },
                                           ),
-                                        ).then((value) => pestRandom = Random().nextInt(21));
+                                        ).then((value) => pestRandom = Random().nextInt(20));
                                       }
                                     },
                                     child: Container(
@@ -229,7 +231,7 @@ class _HomeBodyState extends State<HomeBody> {
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
                                         return BookMarkPage();
-                                      })).then((value) => pestRandom = Random().nextInt(21));
+                                      })).then((value) => pestRandom = Random().nextInt(20));
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(top: 10),
@@ -284,64 +286,78 @@ class _HomeBodyState extends State<HomeBody> {
               padding: EdgeInsets.only(
                   left: kDefaultPadding),
             ),
-            Container(
-              height: size.height / 1.6 - 30,
-              padding: EdgeInsets.all(kDefaultPadding),
+            GestureDetector(
+              onTap: () => {
+                Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PestInfomationPage(name: pestlist[pestRandom].name, pestlist: pestlist);
+                                
+                              
+                            },
+                          ),
+                        ).then((value) => {pestRandom = Random().nextInt(20),setState((){})})
+              },
               child: Container(
-                height: size.height / 2.5,
-                width: size.width - kDefaultPadding *2,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 6),
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.38),
+                height: size.height / 1.6 - 30,
+                padding: EdgeInsets.all(kDefaultPadding),
+                child: Container(
+                  height: size.height / 2.5,
+                  width: size.width - kDefaultPadding *2,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 6),
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.38),
+                        ),
+                      ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        child: Image.asset(
+                          pestlist[pestRandom].imagePath!,
+                          fit: BoxFit.fill,
+                          width: size.width - kDefaultPadding * 2,
+                          height: size.height / 3,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
                       ),
-                    ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      child: Image.asset(
-                        pestlist[pestRandom].imagePath!,
-                        fit: BoxFit.fill,
-                        width: size.width - kDefaultPadding * 2,
-                        height: size.height / 3,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: kDefaultPadding,left: kDefaultPadding),
-                      height: size.height / 6,
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("명칭",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
-                          Text(
-                            pestlist[pestRandom].name!,
-                            style: TextStyle(
-                                color: Colors.black),
-                          ),
-                          SizedBox(
-                            height: kDefaultPadding / 2,
-                          ),
-                          Text("대상 작물",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
-                          Text(
-                              pestlist[pestRandom].targetCrop!,
+                      Container(
+                        padding: EdgeInsets.only(top: kDefaultPadding,left: kDefaultPadding),
+                        height: size.height / 6,
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("명칭",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                            Text(
+                              pestlist[pestRandom].name!,
                               style: TextStyle(
                                   color: Colors.black),
-                            )
-                        ],
-                      ),
-                    )
-                  ],
+                            ),
+                            SizedBox(
+                              height: kDefaultPadding / 2,
+                            ),
+                            Text("대상 작물",style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),),
+                            Text(
+                                pestlist[pestRandom].targetCrop!,
+                                style: TextStyle(
+                                    color: Colors.black),
+                              )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -514,8 +530,8 @@ class _RecomendedPestCardState extends State<RecomendedPestCard> {
                         ),
                         TextSpan(
                           //text: "$kinds".substring(0,2),
-                          text: "${widget.kinds}".length > 10
-                              ? "${widget.kinds}".substring(0, 10) + "..."
+                          text: "${widget.kinds}".length > 8
+                              ? "${widget.kinds}".substring(0, 8) + "..."
                               : "${widget.kinds}",
                           //text: Text("$kinds",overflow: TextOverflow.ellipsis,);
 

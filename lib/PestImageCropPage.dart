@@ -13,7 +13,7 @@ class PestImageCropPage extends StatefulWidget {
   final String title;
   final File? imageFile;
   final List<Pest>? pestlist;
-  PestImageCropPage({required this.title, this.imageFile, this.pestlist});
+  PestImageCropPage({required this.title, this.imageFile, @required this.pestlist});
 
   @override
   _PestImageCropPage createState() => _PestImageCropPage();
@@ -50,7 +50,7 @@ class _PestImageCropPage extends State<PestImageCropPage> {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 40,left: 20,right: 20 ,bottom: 40),
+        padding: const EdgeInsets.only(top: 40,bottom: 40),
         child: Column(
           children: [
 
@@ -74,15 +74,16 @@ class _PestImageCropPage extends State<PestImageCropPage> {
             Padding(
               
               padding: const EdgeInsets.only(top: 60),
-              child: Text("곤충이 위 사각형에 90%이상 꽉차게 맞춰 주세요!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+              child: Text("곤충이 위 사각형에 90%이상 꽉차게 맞춰 주세요!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13),),
             ),
             
             Spacer(),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding/2),
-                  child: CupertinoButton(
-                    child: Text("진단"),
+            Container(
+              padding: EdgeInsets.only(left: kDefaultPadding / 2, right: kDefaultPadding / 2),
+              child: Row(
+                children: [
+                  CupertinoButton(
+                    child: Text("진단",style: TextStyle(),),
                     color: kPrimaryColor,
                     onPressed: () async {
                       aiDoctor().then((_) {
@@ -101,20 +102,20 @@ class _PestImageCropPage extends State<PestImageCropPage> {
                               fullscreenDialog: true),
                         );
                       });
-                
+                  
                       // Navigator.pop(context);
                     },
                   ),
-                ),
-                //Spacer(),
-                CupertinoButton(
-                  color: kPrimaryColor,
-                  child: Text("재조정"),
-                  onPressed: () {
-                    _cropImage();
-                  },
-                ),
-              ],
+                  Spacer(),
+                  CupertinoButton(
+                    color: kPrimaryColor,
+                    child: Text("재조정"),
+                    onPressed: () {
+                      _cropImage();
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -157,7 +158,7 @@ class _PestImageCropPage extends State<PestImageCropPage> {
 
   
   Future aiDoctor () async {
-    await AiDoctor.Doctor(_imageTemp).then((value) => label = value);    
+    await AiDoctor.Doctor(_imageTemp).then((value) => {label = value});    
     
   }
 

@@ -75,7 +75,7 @@ class _HomeBodyState extends State<HomeBody> {
                         context,
                         MaterialPageRoute(
                             builder: (context) {
-                              return CameraPage();
+                              return CameraPage(pestlist);
                             },
                             fullscreenDialog: true),
                       );
@@ -86,6 +86,7 @@ class _HomeBodyState extends State<HomeBody> {
                           MaterialPageRoute(
                             builder: (context) {
                               return PestImageCropPage(
+                                pestlist: pestlist,
                                 title: "이미지 자르기",
                                 imageFile: result,
                               );
@@ -127,6 +128,7 @@ class _HomeBodyState extends State<HomeBody> {
                           MaterialPageRoute(
                             builder: (context) {
                               return PestImageCropPage(
+                                pestlist: pestlist,
                                 title: "이미지 자르기",
                                 imageFile: imageFile,
                               );

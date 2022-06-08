@@ -197,6 +197,7 @@ class _PestDictionaryPageState extends State<PestDictionaryPage> {
                           );
                         },
                         child: Container(
+                          color: Colors.white,
                           child: Column(
                             children: [
                               Container(

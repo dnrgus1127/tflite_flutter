@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:fluting/Constant.dart';
+import 'package:fluting/Pest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,6 +10,8 @@ import './main.dart';
 import 'PestImageCropPage.dart';
 
 class CameraPage extends StatefulWidget {
+  final List<Pest>? pestlist;
+  const CameraPage(this.pestlist);
   @override
   _CameraPageState createState() => _CameraPageState();
 }
@@ -20,11 +23,12 @@ class _CameraPageState extends State<CameraPage> {
   PageController _pageController =
       PageController(initialPage: 1, viewportFraction: 0.2);
   int _selectedTab = 1;
+  List<Pest>? pestlist;
 
   @override
   void initState() {
     super.initState();
-
+    pestlist = widget.pestlist;
     _cameraController.initialize().then((_) {
       if (!mounted) return;
 
@@ -62,8 +66,8 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Widget _buildCameraBar(BuildContext context) {
-    final devicesize = MediaQuery.of(context).size;
-    final deviceRatio = devicesize.width / devicesize.height;
+    //final devicesize = MediaQuery.of(context).size;
+    //final deviceRatio = devicesize.width / devicesize.height;
     final TextStyle style = Theme.of(context).textTheme.bodyText1!.copyWith(
         fontSize: 13, color: Colors.white, fontWeight: FontWeight.bold);
 
@@ -77,7 +81,7 @@ class _CameraPageState extends State<CameraPage> {
         children: <Widget>[
           Transform.scale(
             //scale: _cameraController.value.aspectRatio / deviceRatio,
-            scale: 1.5,
+            scale: 1,
             alignment: Alignment.center,
             child: CameraPreview(_cameraController),
             //aspectRatio: _cameraController.value.aspectRatio,
@@ -179,15 +183,15 @@ class _CameraPageState extends State<CameraPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    _buildIconWithText(
-                        context,
-                        Icon(
-                          CupertinoIcons.app_badge_fill,
-                          color: Colors.white,
-                        ),
-                        "text",
-                        style.copyWith(fontSize: 11),
-                        35),
+                    // _buildIconWithText(
+                    //     context,
+                    //     Icon(
+                    //       CupertinoIcons.app_badge_fill,
+                    //       color: Colors.white,
+                    //     ),
+                    //     "text",
+                    //     style.copyWith(fontSize: 11),
+                    //     35),
                     InkWell(
                       onTap: () async {
                         XFile? rawImage = await takePicture();
@@ -219,6 +223,7 @@ class _CameraPageState extends State<CameraPage> {
                               return PestImageCropPage(
                                 title: "이미지 자르기",
                                 imageFile: imageFile,
+                                pestlist: pestlist,
                               );
                             },
                           ),
@@ -236,20 +241,20 @@ class _CameraPageState extends State<CameraPage> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
+                    // GestureDetector(
+                    //   onTap: () {
 
-                      },
-                      child: _buildIconWithText(
-                          context,
-                          Icon(
-                            CupertinoIcons.refresh,
-                            color: Colors.white,
-                          ),
-                          "text",
-                          style.copyWith(fontSize: 11),
-                          35),
-                    ),
+                    //   },
+                    //   child: _buildIconWithText(
+                    //       context,
+                    //       Icon(
+                    //         CupertinoIcons.refresh,
+                    //         color: Colors.white,
+                    //       ),
+                    //       "text",
+                    //       style.copyWith(fontSize: 11),
+                    //       35),
+                    // ),
                   ],
                 ),
               ),
