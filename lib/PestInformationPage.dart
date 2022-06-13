@@ -65,6 +65,9 @@ class _PestInfomationPage extends State<PestInfomationPage> {
       }
     _loadData(widget.name!).then((value) => {
       isBookMark = value,
+      setState(() {
+      
+    })
       
     });
     setState(() {

@@ -120,7 +120,7 @@ class _HomeBodyState extends State<HomeBody> {
                                       }
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: 20),
                                       margin: EdgeInsets.only(left: 5, right: 5),
                                       //color: Colors.green,
                                       decoration: BoxDecoration(
@@ -165,7 +165,7 @@ class _HomeBodyState extends State<HomeBody> {
                                       }
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: 20),
                                       margin: EdgeInsets.only(left: 5, right: 5),
                                       //color: Colors.green,
                                       decoration: BoxDecoration(
@@ -199,7 +199,7 @@ class _HomeBodyState extends State<HomeBody> {
                                       }));
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: 20),
                                       margin: EdgeInsets.only(left: 5, right: 5),
                                       //color: Colors.green,
                                       decoration: BoxDecoration(
@@ -234,7 +234,7 @@ class _HomeBodyState extends State<HomeBody> {
                                       })).then((value) => pestRandom = Random().nextInt(20));
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: 20),
                                       margin: EdgeInsets.only(left: 5, right: 5),
                                       //color: Colors.green,
                                       decoration: BoxDecoration(
@@ -432,6 +432,84 @@ class _RecomendsPestsState extends State<RecomendsPests> {
             name: pestlist![5].name,
             kinds: pestlist![5].targetCrop,
           ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![7].imagePath,
+            name: pestlist![7].name,
+            kinds: pestlist![7].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![6].imagePath,
+            name: pestlist![6].name,
+            kinds: pestlist![6].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![8].imagePath,
+            name: pestlist![8].name,
+            kinds: pestlist![8].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![9].imagePath,
+            name: pestlist![9].name,
+            kinds: pestlist![9].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![10].imagePath,
+            name: pestlist![10].name,
+            kinds: pestlist![10].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![11].imagePath,
+            name: pestlist![11].name,
+            kinds: pestlist![11].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![12].imagePath,
+            name: pestlist![12].name,
+            kinds: pestlist![12].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![13].imagePath,
+            name: pestlist![13].name,
+            kinds: pestlist![13].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![14].imagePath,
+            name: pestlist![14].name,
+            kinds: pestlist![14].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![15].imagePath,
+            name: pestlist![15].name,
+            kinds: pestlist![15].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![16].imagePath,
+            name: pestlist![16].name,
+            kinds: pestlist![16].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![17].imagePath,
+            name: pestlist![17].name,
+            kinds: pestlist![17].targetCrop,
+          ),
+          RecomendedPestCard(
+            pestlist: pestlist,
+            image: pestlist![18].imagePath,
+            name: pestlist![18].name,
+            kinds: pestlist![18].targetCrop,
+          ),
         ],
       ),
     );
@@ -521,11 +599,15 @@ class _RecomendedPestCardState extends State<RecomendedPestCard> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "${widget.name}\n".toUpperCase(),
+                          text: 
+                          "${widget.name}".length > 8
+                              ? "${widget.name}".substring(0, 8) + "\n"
+                              : "${widget.name}\n",
+                              
                           // style: Theme.of(context).textTheme.button,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 11,
+                            fontSize: 10,
                           ),
                         ),
                         TextSpan(
